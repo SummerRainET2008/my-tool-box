@@ -606,6 +606,7 @@ export PATH=/opt/local/bin:$PATH
 export PATH=/opt/local/sbin:$PATH
 export PATH=~/.vim/bin:$PATH
 export PATH=/opt/rh/devtoolset-3/root/usr/bin:$PATH
+export PATH=/Users/summer/my-tool-box/bin:$PATH
 
 export CPLUS_INCLUDE_PATH=~/.vim/include:$CPLUS_INCLUDE_PATH
 export CPLUS_INCLUDE_PATH=/opt/local/include:$CPLUS_INCLUDE_PATH
@@ -623,8 +624,8 @@ export DYLD_FALLBACK_LIBRARY_PATH=/opt/local/Library/Frameworks/Python.framework
 export DYLD_FALLBACK_LIBRARY_PATH=~/installed/boost/stage/lib:$DYLD_FALLBACK_LIBRARY_PATH
 export DYLD_FALLBACK_LIBRARY_PATH=/opt/local/lib:$DYLD_FALLBACK_LIBRARY_PATH
 
-export PYTHONPATH=~/.vim/include:$PYTHONPATH
 export PYTHONPATH=~/.vim/bin:$PYTHONPATH
+export PYTHONPATH=/Users/summer/my-tool-box/include:$PYTHONPATH
 
 export CLASSPATH=~/.m2/repository/org/scala-lang/scala-library/2.11.7/scala-library-2.11.7.jar:$CLASSPATH
 export CLASSPATH=/opt/local/share/java/jline.jar:$CLASSPATH

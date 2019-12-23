@@ -10,7 +10,7 @@ class ServerManager:
   def __init__(self):
     self._servers = {}
     home = nlp.get_home_dir()
-    servers = nlp.pydict_file_read(f"{home}/.vim/include/servers.pydict")
+    servers = nlp.pydict_file_read(f"{home}/my-tool-box/include/servers.pydict")
     for server in servers:
       self._servers[server["name"]] = server
       print(server)
