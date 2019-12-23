@@ -1,1 +1,1 @@
-sudo docker build -t summer-DL-tf2-pytorch .
+sudo docker build -t summer-dl-tf2-pytorch .
