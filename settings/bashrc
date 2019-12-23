@@ -627,7 +627,7 @@ export DYLD_FALLBACK_LIBRARY_PATH=/opt/local/lib:$DYLD_FALLBACK_LIBRARY_PATH
 
 export PYTHONPATH=~/my-tool-box/include:$PYTHONPATH
 export PYTHONPATH=~/my-tool-box/bin:$PYTHONPATH
-export PYTHONPATH=~/insighted_nlp:$PYTHONPATH
+export PYTHONPATH=~/insight_nlp:$PYTHONPATH
 
 export CLASSPATH=~/.m2/repository/org/scala-lang/scala-library/2.11.7/scala-library-2.11.7.jar:$CLASSPATH
 export CLASSPATH=/opt/local/share/java/jline.jar:$CLASSPATH
