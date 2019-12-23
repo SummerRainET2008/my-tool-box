@@ -1749,7 +1749,7 @@
 		</dict>
 	</dict>
 	<key>PrefsCustomFolder</key>
-	<string>/Users/summer/.vim/iterm2-settings</string>
+	<string>/Users/summer/my-tool-box/settings</string>
 	<key>Print In Black And White</key>
 	<true/>
 	<key>PromptOnClose</key>
