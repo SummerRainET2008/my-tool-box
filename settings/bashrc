@@ -1,0 +1,656 @@
+: 'topic=docker
+common commands: [[[https://docs.docker.com/engine/reference/commandline/image_rm/]]]
+>> docker images
+>> docker image rm $docker-name
+>> docker ps
+>> docker kill $container-id
+>> docker exec -it $container-id bash
+>> sudo docker build -t summer-dl .
+
+>> distribution=$(. /etc/os-release;echo $ID$VERSION_ID)
+>> curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | sudo apt-key add -
+>> curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.list | sudo tee /etc/apt/sources.list.d/nvidia-docker.list
+>>
+>> sudo apt-get update && sudo apt-get install -y nvidia-container-toolkit
+>> sudo systemctl restart docker
+
+>> _install_package.py --tool apt --install "nvidia-container-runtime nvidia-container-toolkit"
+>> docker run --gpus all --rm nvidia/cuda nvidia-smi
+
+>> docker pull tensorflow/tensorflow:latest-gpu-py3
+>> docker pull tensorflow/tensorflow:nightly-gpu-py3
+
+note: --runtime=nvidia in 225, nightly-gpu-py3
+>> docker run --gpus all -it --rm tensorflow/tensorflow:latest-gpu-py3 \
+  python3 -c "import tensorflow as tf; print(tf.__version__, tf.reduce_sum(tf.random.normal([1000, 1000])))"
+
+>> sudo docker run --gpus all -it --rm -v ~/summer201:/summer201 -w /summer201 \
+  tensorflow/tensorflow:nightly-gpu-py3 bash 
+'
+
+# topic=hotkey in Mac
+
+# colorful temrinal for ubuntu
+# alias less='less --RAW-CONTROL-CHARS'
+# export LS_OPTS='--color=auto'
+# alias ls='ls ${LS_OPTS}'
+
+# mount network folder. 
+# mkdir /home/summer/summer208; sudo sshfs summer@192.168.1.208:/data/workspace/summer /home/summer/summer208 -o idmap=user -o allow_other
+# mkdir /home/summer/summer201; sudo sshfs summer@192.168.1.201:/media/workspace/summer /home/summer/summer201 -o idmap=user -o allow_other
+
+# watch -n 0.1 nvidia-smi
+
+# ubuntu version: lsb_release -a
+
+# audacity, music editor
+
+# topic=7z
+# >> sudo apt-get install p7zip-full
+# >> 7z e {file-name}.7z.001
+
+# topic=service
+# >> sudo service neo4j start                     # start
+# >> sudo service --status-all | grep -i neo      # status
+# >> systemctl status  neo4j                      # status
+# >> sudo journalctl -e -u neo4j                  # log
+
+# topic=restore to 恢复模式
+# 重启之后(按住shift)进入 grub菜单: Advanced options for ubuntu.
+# 按选择进入到Recovery Menu 
+# 进入到Recovery Menu 首先fsck，会提示，根分区将会被重新mount为rw模式。 同时会mount /etc/fstab中定义的其它分区，选择yes就OK了。
+# 结束之后按Enter返回Recovery Menu, 选择进入root ，之后就会进入终端状态，可进行脚本执行。
+
+# topic=install java10
+# >> sudo add-apt-repository ppa:linuxuprising/java
+# >> sudo apt-get update
+# >> sudo apt-get install oracle-java10-installer
+# >> sudo apt-get install oracle-java10-set-default
+
+# topic=ubuntu waiting 5 minutes 
+# >> vim /etc/systemd/system/network-online.target.wants/networking.service
+
+# topic=connect local network from outside
+# https://www.zhihu.com/question/27771692
+# >> ngrok tcp 22
+# >> ssh summer@0.tcp.ngrok.io -p18472
+
+# topic=openVPN
+# https://linux.cn/article-3706-2.html
+# require router port transfer.
+
+# topic=adduser
+# To list all local users you can use >> cut -d: -f1 /etc/passwd
+# To list all users capable of authenticating (in some way), including non-local, see this reply: [[https://askubuntu.com/a/414561/571941]]
+# Block a user from logging >> sudo passwd -l user 
+# Block a user >> sudo passwd -u user 
+
+# topic=tensorboard
+# >> cd /opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/tensorboard
+# >> python main.py --logdir=train:/tmp/tensorflow/mnist/logs/mnist_with_summaries --host=127.0.0.1
+
+# topic=wifi
+# shiflt + command + G: input /Library/Preferences/SystemConfiguration
+# remove: com.apple.airport.preferences.plist
+# remove: NetworkInterfaces.plist
+# remove: preferences.plist
+
+# topic=tools:
+# codepad: coding interview tool [[https://codepad.remoteinterview.io/VOVOCYDHJB]]
+# Python debugger: ipdb
+
+# topic=NLTK
+# download data: nltk.download()
+# draw syntactic tree: nltk.Tree('''(S  (S   (X  Aozhou) (X  shi)) (X  yu (X  Beihan) you (X  (X  bangjiao) de (X  (X  shaoshu guojia) zhiyi))))''').draw()
+
+# topic=Thread
+# C++: Thread-not-safe: istringstream, regex. 
+
+# ---read large data file
+# Do not read all input data at one time, as the thread would not return large allocated memory to OS immediately.
+# We could read data in a lazy way with the help of lock and mutext.
+
+# iterm2 setting import and export
+# menu: preferences -- general -- preferences: load... and save...
+# default folder: ~/vim/settings
+
+# lyx for Chinese 
+# Default support Chinese, so no need to install extra packages.
+# menu: Document - settings - Fonts - use non-teX fonts - use all SimSun, or songti
+# You may need to change "document class" to CText.
+
+# Read hive database using spark 
+# In the terminal: hive:
+# >> show databases;
+# >> show tables;
+# >> use $dataBaseName;
+# >> desc $dataBaseName.$tableName; 
+# >> select * from visitorder_snap ORDER BY RAND() LIMIT 3;
+#
+# Regarding python script, refer to "code.ranking/auto.train.framework/test.hive.py" 
+
+# topic=java 
+# Java class file disassembler: >> javap -c ClassName.class
+# how to list all classes in a jar: >> jar tvf file.jar 
+# Compile java with debug information: >> javac -g *.java
+# find java installed location: /usr/libexec/java_home -v 1.7 
+# Java path in mac: /System/Library/Frameworks/JavaVM.framework/Versions 
+# 
+# Install java in CentOS
+# >> cd ~/; wget --no-cookies --no-check-certificate --header "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie" "http://download.oracle.com/otn-pub/java/jdk/8u60-b27/jre-8u60-linux-x64.rpm"; sudo yum localinstall jre-8u60-linux-x64.rpm
+#
+# Parallel stream in Java
+# java -Djava.util.concurrent.ForkJoinPool.common.parallelism=8 ...
+# or: System.setProperty("java.util.concurrent.ForkJoinPool.common.parallelism", "8")
+# java -Xmx40G  ...
+# Use -Xmx to specify the maximum heap size
+# Use -Xms to specify the initial Java heap size
+# Use -Xss to set the Java thread stack size
+
+# Some basic rules for naming files, folders.
+# folder naming: lower-case, no space.
+# code files: Title case, just like "a class name".
+# other files: lower-case, no space. 
+
+# topic=hadoop,spark
+# how to set GSS.
+# Creating a Kerberos keytab for yourself
+# 1. generate-keytab txia.keytab
+# 2. test: 
+#   >> kdestroy
+#   >> kinit -R -k -t txia.keytab username@DC1.CORP.GD
+#   >> klist
+
+: 'topic=git
+# ---git add a remote bare repository
+# 1. In the server, >> git init --bare
+# 2. In the client, >> git remote add TianXia git@sever-IP:/home/git/folder
+# 3. >> git pull TianXia master
+# 4. Set stream: >> git push --set-upstream TianXia master 
+# 5. copy key into git server to survive password.
+#
+# >> git config --global core.editor "vim"
+# >> git config --global diff.tool vimdiff
+#
+# cache username and password
+# >> git credential-osxkeychain
+# >> git config --global credential.helper osxkeychain
+# >> git config credential.helper store      
+# >> git config --global --unset credential.helper # clear password cache.
+# store in memory
+# >> git config --global credential.helper cache; git config --global credential.helper 'cache --timeout=86400'  
+# store for one day.
+#
+# support non-ascii file name
+# >>git config core.quotepath off
+'
+
+# nosetest
+# >> cd /Users/txia/inf/Desktop/GoDaddy/api
+# test a single function >> nosetests-2.7 --processes=4 --process-timeout=360000 --tc=host:localhost --tc=port:8080 --nocapture acceptance/test.py:test_tld_compaction_10_18
+# or test all
+# >> nosetests-2.7 --processes=4 --process-timeout=360000 --tc=host:localhost --tc=port:8080 --nocapture acceptance/
+# --tc option requires install nose configuration package.
+
+# topic=network
+# connect two computers with a cable
+# 1. In ubuntu: set IP as 192.168.1.104; set netmask as 255.255.255.0
+# 2. In mac Thunderbolt Ethernet (or netcable): 
+#    set IP as 192.168.1.200; set netmask as 255.255.255.0.
+# 3. disconnect mac wifi.
+
+# topic=apt-get
+# check apt-get installed packages: 
+# >> dpkg -L exact-package-name
+# >> apt list --installed
+# 
+# see /etc/apt/sources.list
+#                
+# sudo add-apt-repository ppa:whatever/ppa
+# sudo add-apt-repository --remove ppa:whatever/ppa
+
+# Config aws
+# 1) ping: ICMP   Echo Request
+# 2) TCP:   0 - 65535
+
+# home brew installation directory: /usr/local/Cellar
+
+# Install gcc4.9 and python in CentOS 6.5
+# cd /etc/yum.repos.d; sudo wget http://linuxsoft.cern.ch/cern/scl/slc6-scl.repo; sudo yum -y --nogpgcheck install devtoolset-3-gcc devtoolset-3-gcc-c++
+# /opt/rh/devtoolset-3/root/usr/bin/gcc --version
+# >> sudo yum -y update  
+# >> sudo yum groupinstall -y 'development tools'  
+# >> sudo yum install -y zlib-devel bzip2-devel openssl-devel xz-libs wget  
+
+# SSH without password
+# 1. >> ssh-keygen -t rsa
+#   生成的过程中提示输入，直接回车，接受默认值就行了。
+#   其中公共密钥保存在 ~/.ssh/id_rsa.pub， 私有密钥保存在 ~/.ssh/id_rsa
+# 2. 然后改一下 .ssh 目录的权限，使用命令 "chmod 755 ~/.ssh"
+# 3. 之后把这个密钥对中的公共密钥复制到你要访问的机器上去，并保存为~/.ssh/authorized_keys.
+# 4. 设置权限: chmod 644 ~/.ssh/authorized_keys
+
+# topic=Maven
+# Create a maven project [[http://www.mkyong.com/maven/how-to-create-a-java-project-with-maven/]]
+#   mvn archetype:generate -DgroupId={package-name}  -DartifactId={foldername} -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false
+#
+# Common commands:
+#   >> mvn clean
+#   >> mvn compile
+#   >> mvn package
+#   >> mvn clean install
+# 
+# Download packages:
+#   <dependency>
+#     <groupId>org.apache.commons</groupId>
+#     <artifactId>commons-lang3</artifactId>
+#     <version>3.4</version>
+#   </dependency>
+#
+# Or download packages directly:
+#   mvn -DgroupId=commons-io -DartifactId=commons-io -Dversion=1.4 dependency:get
+# 
+# Download sources: 
+#   >> mvn dependency:sources
+#   >> mvn dependency:resolve -Dclassifier=javadoc
+# 
+#   The first command will attempt to download source code for each of the dependencies in your pom file.
+#   The second command will attempt to download the Javadocs.
+#
+# Converted for Eclipse IDE
+#   mvn eclipse:eclipse
+#   To import the project into Eclipse IDE, select "File -> Import… -> General->Existing Projects into Workspace"
+
+# Eclim for Java
+# How to add a new library in Java.
+# 1. export CLASSPATH=library-path:./:$CLASSPATH
+#    Note, we have to add "./" to it.
+# 2. Setting in eclim:
+#    Add a newline in .classpath:
+#    <classpathentry kind="lib" path="library-path"/>
+#    Make sure you put all sources and classes in the same directory, then in 
+#    JDB source files could be conveniently found.
+# 3. In JDB, when running, you could input "classpath" to see all library paths.
+# 
+# Set project with assertion mode.
+# :ProjectSettings or (:EclimSettings)
+# org.eclim.java.run.jvmargs=[-ea]
+
+: 'topic=tensorflow installation
+https://www.tensorflow.org/install/install_linux#tensorflow_gpu_support
+0) nvidia GPU driver (version 410, OK for 418)
+1) CUDA Toolkit 10.0. for (tensorflow 1.10)
+2) cuDNN SDK. 
+3) >> sudo python3 -m pip install tensorflow-gpu==1.15
+refer to [[https://www.tensorflow.org/install/gpu]]
+'
+
+# topic=pytorch installation
+# sudo python3.7 -m pip install torch torchvision
+# sudo install_name_tool -add_rpath /usr/lib  /opt/local/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/torch/_C.cpython-36m-darwin.so
+# sudo install_name_tool -add_rpath /usr/lib  /opt/local/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/torch/_C.cpython-37m-darwin.so
+
+: 'topic=GPU drive
+stop xwindows: >> sudo service lightdm stop
+>> cat /proc/driver/nvidia/gpus/0000\:0f\:00.0/information
+>> lspci -vnn | grep -i VGA -A 12
+>> nvidia-smi
+
+>> sudo apt-get --purge remove "*nvidia*"
+>> dpkg --list | grep linux-image
+
+when installing nvidia drive, the error message is 'can not find source or what'.
+>> sudo apt-get install build-essential
+>> sudo apt-get install linux-headers-$(uname -r)
+>> sudo apt-get install linux-image-extra-virtual
+>> sudo apt-get install linux-source
+  
+install nvidia drive in specific kernel version 
+>> sudo ./NVIDIA-Linux-x86_64-410.104.run --kernel-source-path=/lib/modules/4.4.0-140-generic/build
+'
+
+# ---run deeplearning4j on GPUs
+# If necessary, add "sudo".
+# monitor GPU usage: [sudo] nvidia-smi
+# run: [sudo] java ...
+#
+# ---How to deal with 'NVML: Driver/library version mismatch'
+# >> lsmod | grep nvidia
+# 
+# >> sudo rmmod nvidia_drm
+# >> sudo rmmod nvidia_modeset
+# >> sudo rmmod nvidia_uvm
+# 
+# if failed, then try
+# >> sudo lsof /dev/nvidia* 
+# kill those process, then continue to unload the kmods
+# 
+# >> sudo rmmod nvidia
+# 
+# >> lsmod | grep nvidia
+# We should get nothing.
+# 
+# >> nvidia-smi
+# We should get the correct output
+#
+# examine the memory usuage for each GPU
+# >> sudo fuser -v /dev/nvidia*
+
+# Python debugger.
+# vim /opt/local/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/cmd.py
+# use_rawinput = 1
+#   set to
+# use_rawinput = 0
+# 
+# But this method seems to permit the command history.
+# We could define my own pdb.py version.
+
+# mount GPT disk
+# sudo parted /dev/sda print
+# mount some parition in it.
+
+# gprof (not working in mac)
+# 1. Add -g in both compiling and linking of g++.
+# 2. run and generate gmon.out.
+# 3. gprof test > prof.text
+
+: 'topic=pip
+---list all installed packages in pip: pip freeze or pip list
+
+Install scipy, numpy from easy_install, pip.
+curl -O https://svn.apache.org/repos/asf/oodt/tools/oodtsite.publisher/trunk/distribute_setup.py
+full-path-python2.7 distribute_setup.py
+/usr/local/share/python/easy_install pip
+or
+>> curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+>> {python-version} get-pip.py
+
+>> {python-version} -m pip install scipy, numpy [--upgrade]
+
+install pip
+>> sudo apt-get install python-pip
+>> pip install some-package
+or
+>> python3.6 -m pip -V
+>> python3.6 -m pip install {package-name}
+
+uninstall all packages
+>> sudo python3.7 -m pip freeze > requirements.txt
+>> sudo python3.7 -m pip uninstall -r requirements.txt -y
+'
+
+# How to find installed Python Library    
+# import pip
+# installed_packages = pip.get_installed_distributions()
+# installed_packages_list = sorted(["%s==%s" % (i.key, i.version) for i in installed_packages])
+# print(installed_packages_list)
+
+# topic=python library
+# PIL image-rendering commands
+# cvxmod: lingo-like programming pack 
+# cvxopt: python software for convex optimization
+# gensim, a topic modeling package containing our LDA model. https://rstudio-pubs-static.s3.amazonaws.com/79360_850b2a69980c4488b1db95987a24867a.html
+# gensim: Python framework for fast Vector Space Modelling
+# matplotlib: a mature and popular plotting package, that provides publication-quality 2d plotting as well as rudimentary 3d plotting
+# nltk: a libray for NLP 
+# numpy: the fundamental package for numerical computation. it defines the numerical array and matrix types and basic operations on them.
+# pandas: powerful python data analysis toolkit, including time series analysis.
+# pybrain: a modular machine learning library for Reinforcement Learning, Artificial Intelligence and Neural Network.
+# scipy: scientific computation. 
+# seaborn: statistical data visualization
+# shogun-octave: large scale machine learning toolbox
+# shogun-python: 大规模机器学习工具箱。
+# sklearn: scikit-learn machine learning package.
+# sklearn_pandas: this module provides a bridge between scikit-learn's machine learning methods and pandas-style data frames.
+# sympy: a symbolic manipulation package, written in pure python
+# tensorflow
+# tensorflow_nlp
+
+# Debug java in a GUI jdb.
+# 1) mvim --servername debug *.java
+# 2) _jdb_server.py 
+# Note, I did not use vim, instead macvim, as console vim does not support client server mode.
+# Though, I could complile vim with X11, but that would ruin the system global clipboard.
+
+# How to let jdb support up/down/left/right
+# >> sudo port install jline
+# >> java -classpath /opt/local/share/java/jline.jar:/Library/Java/JavaVirtualMachines/jdk1.7.0_45.jdk/Contents/Home/lib/tools.jar jline.ConsoleRunner com.sun.tools.example.debug.tty.TTY your-main-class 
+# Check content in a jar package: vim *.jar
+
+# topic=VIM supports python, cscope
+# vim --version, check if python is supported.
+# >> port variant[s] vim
+# >> port installed | grep vim
+# >> sudo port install vim +python27 +cscope +huge (for mac at least)
+# >> sudo port install vim +python27 +cscope +huge +x11 (for mac at least, would cause can not <C-l> and <C-w>
+# >> sudo port activate vim version.
+#
+# ---port often fail in installing macvim.
+# >> sudo chmod -R g-w $(xcode-select -p)/Library/PrivateFrameworks/CoreSimulator.framework/Versions/A/XPCServices/com.apple.CoreSimulator.CoreSimulatorService.xpc
+# >> sudo chown -R root:wheel $(xcode-select -p)/Library/PrivateFrameworks/CoreSimulator.framework/Versions/A/XPCServices/com.apple.CoreSimulator.CoreSimulatorService.xpc
+# https://trac.macports.org/wiki/ProblemHotlist#xcode7.2
+
+# 挂载iso文件：mount -t iso9660 -o loop xxx.iso /path
+# 拷贝光盘：cp /dev/cdrom xxx.iso 
+
+# 正则表达式grep，是perl语法的一个子集，但正则表达式要加双引号。 
+# >> ls | grep ".*\.c[a-z]?"
+
+# 使用awk提取短语表src、tgt命令：
+# >> cat phrase.table | awk -F" \|\|\| " '{print $1}' 或者 awk -F" \|\|\| " '{print $1}' phrase.table
+
+# sed
+# cmd = '''sed 's/\(WEIGHTS.*\[\).*\(\]\)/\\1%s\\2/g' ../config.py > tmp && mv tmp ../config.py''' %weights
+
+# >> df -lh
+# >> sudo fdisk -l
+
+# get the UUID of each partition: 
+# >> sudo blkid or ls /dev/disk/by-uuid/ -alh
+# >> ls -l /dev/disk/by-label/
+
+# wake up "ctrl + z" programs: 
+# >> fg [1, 2 ..]
+
+# determine the version and name of a linux system: 
+# >> cat /etc/*-release
+
+# How to determine whether a given Linux is 32 bit or 64 bit?
+# "uname -m" ==> "x86_64" ==> 64-bit kernel, "i686" ==> 32-bit kernel
+# or "getconf LONG_BIT"
+
+# -H in grep means outputting filenames.
+# >> find . -iregex ".*java" -exec grep -iH main {} \;
+
+# 环境变量
+# linux PATH,CPLUS_INCLUDE_PATH, LIBRARY_PATH, LD_LIBRARY_PATH
+# mac: PATH, CPLUS_INCLUDE_PATH, LIBRARY_PATH, DYLD_LIBRARY_PATH(better one: DYLD_FALLBACK_LIBRARY_PATH)
+
+# topic=gdb
+# >> info source
+
+# 查看include的文件的包含关系: >> g++ -M main.cpp
+
+# Update two folders:
+# >> rsync -ravutz -e ssh source-dir/ summer@130.108.28.50:dest-dir
+# If want to delete extraneous files in destination folder, add "--delete" option.
+# Note, souce-dir must ends with "/", while dest-dir does not need to ends with "/".
+
+# 在bash中单引号和双引号的区别：单引号不解释里面的变量。 
+# export file="hello world"; export '$file' ---> $file
+# export file="hello world"; export "$file" ---> hello world
+
+# 至少mac下面，命令行的正则匹配：
+# “." 匹配字面“.”。
+# “?” 匹配任意一个字符。
+# “*" 任意串
+
+# rsync时，如果目标文件夹有空格时，这时候用"\"转义：
+# >> _supdate . "summer@130.108.28.50:/media/inf/web\ services/robot\ reporter/library"
+
+# >> unzip file.zip -d destination_folder
+
+# How to set default finder view for all windows.
+# >> sudo find / -name .DS_Store -delete; killall Finder
+
+# Unlock files. >> sudo chflags -R nouchg file-name
+
+# mdls: look up meta information a file.
+
+# ditto: Copy Files & Directories Intelligently from the Mac Terminal url
+
+# In mac： 'otool -L data_ext.so', while in linux: 'ldd'
+
+: 'topic=macport
+ >> xcode-select --install
+ 
+ [[http://guide.macports.org/#using.port]]
+ ---backup
+ >> port -qv installed > myports.txt
+ >> sudo port -f uninstall installed
+ >> port installed inactive
+
+ ---update                                   
+ >> sudo port selfupdate
+ >> port outdated
+ >> sudo port upgrade outdated
+ >> sudo port rev-upgrade     # update broken ports.
+ 
+ ---clean
+ >> sudo port uninstall leaves; sudo port uninstall inactive;
+ >> sudo port clean --all all; 
+
+ ---info and search
+ >> port echo leaves
+ >> Look up installation location of port: port content [jline]
+ >> port info [boost]
+ >> port variants boost
+ >> port install boost -no_static
+
+ ---setting
+ >> port select --show python
+ >> port select --list python 
+ >> sudo port select --set python <the python version>
+ >> sudo port select --set python python27
+ >> port select --set pip pip27
+'
+
+###############################################################################
+export CLICOLOR=1 
+export LSCOLORS=ExFxCxDxBxegedabagacad
+
+alias _mount_201='sudo sshfs summer@192.168.1.201:/media/workspace/summer /home/summer/summer201 -o idmap=user -o allow_other'
+alias _ubuntu_version='lsb_release -a'
+
+alias _create_cpp_project='cp "/Users/world/Desktop/test program/leetcode template/"* .; cp ~/.gitignore .; git init;'
+alias _create_java_project='cp "/Users/world/Desktop/test program/java template/"* .; cp ~/.gitignore .; git init;'
+alias _create_python_project='cp "/Users/world/Desktop/test program/python template/"* .; cp ~/.gitignore .; git init;'
+
+alias l='       ls -lhp'
+alias ll='      ls -lhrtp'
+alias la='      ls -lhatp'
+alias lld='     ls -lht | grep "^d"'
+alias lll='     ls -lht | grep "^l"'
+alias llf='     ls -lht | grep "^-"'
+
+alias vimr='vim -R'
+
+#[[http://hadoop.apache.org/docs/current/hadoop-project-dist/hadoop-common/FileSystemShell.html]]
+alias _hadoop='hadoop fs'
+alias _hls='hadoop fs -ls -h'
+alias _hcat='hadoop fs -cat'
+alias _hcp='hadoop fs -cp'
+alias _hmv='hadoop fs -mv'
+alias _hchmod='hadoop fs -chmod'
+alias _hmkdir='hadoop fs -mkdir'
+alias _hrm='hadoop fs -rm -r'
+alias _hdu='hadoop fs -du -h'
+alias _htext='hadoop fs -text'
+alias _hcopyFromLocal='hadoop fs -copyFromLocal'
+alias _hcopyToLocal='hadoop fs -copyToLocal'
+alias _hdu='hadoop fs -du -s -h'
+
+alias _hlog='yarn logs -applicationId'
+alias _hadoop_yarn_kill='yarn application -kill'
+
+alias _git_reset='git reset'
+alias _git_init='git init'
+alias _git_add_all='git add .'
+alias _git_add='git add'
+alias _git_status='git status'
+alias _git_difftool='git difftool'
+alias _git_difftool_name='git difftool --name-status'  # old-commit new-commit
+alias _git_commit='git commit -a'
+alias _git_commit_amend='git commit -a --amend'
+alias _git_branch='git branch'
+alias _git_checkout='git checkout'
+alias _git_log='git log --graph --decorate'
+alias _git_log_graph='git log --graph --oneline --decorate'
+git config --global alias.whenadded 'log --diff-filter=A'       # git whenadded -- fileName.py
+
+alias du1='du -h -d 1'
+alias du2='du -h --max-depth 1'
+
+# e.g. rsync --size-only -ravutz -e ssh source-dir/ summer@130.108.28.50:dest-dir/
+
+alias _cleanCano='cd /Volumes/CANO && find . -iregex ".*\.thm" -exec rm -v {} \;'
+
+alias _gpu_usage='watch -n 0.1 nvidia-smi'
+alias _gpu_pids='sudo fuser -v /dev/nvidia*' 
+
+#topic=jupyter
+# open command: >> jupyter-3.6 notebook
+alias _jupyter_convert='jupyter-3.6 nbconvert --to script'
+
+export PATH=/opt/local/bin:$PATH
+export PATH=/opt/local/sbin:$PATH
+export PATH=~/.vim/bin:$PATH
+export PATH=/opt/rh/devtoolset-3/root/usr/bin:$PATH
+
+export CPLUS_INCLUDE_PATH=~/.vim/include:$CPLUS_INCLUDE_PATH
+export CPLUS_INCLUDE_PATH=/opt/local/include:$CPLUS_INCLUDE_PATH
+export CPLUS_INCLUDE_PATH=/opt/local/Library/Frameworks/Python.framework/Versions/2.7/Headers:$CPLUS_INCLUDE_PATH
+# for installing python library: json
+export CPLUS_INCLUDE_PATH=/System/Library/Frameworks/JavaVM.framework/Versions/A/Headers:$CPLUS_INCLUDE_PATH
+# for google test 1.7.0
+export CPLUS_INCLUDE_PATH=~/Installed/gtest-1.7.0.summer/include:$CPLUS_INCLUDE_PATH
+
+export LIBRARY_PATH=/opt/local/Library/Frameworks/Python.framework/Versions/2.7/lib:$LIBRARY_PATH
+export LIBRARY_PATH=/opt/local/lib:$LIBRARY_PATH
+export LIBRARY_PATH=/usr/local/lib:$LIBRARY_PATH
+
+export DYLD_FALLBACK_LIBRARY_PATH=/opt/local/Library/Frameworks/Python.framework/Versions/2.7/lib:$DYLD_FALLBACK_LIBRARY_PATH
+export DYLD_FALLBACK_LIBRARY_PATH=~/installed/boost/stage/lib:$DYLD_FALLBACK_LIBRARY_PATH
+export DYLD_FALLBACK_LIBRARY_PATH=/opt/local/lib:$DYLD_FALLBACK_LIBRARY_PATH
+
+export PYTHONPATH=~/.vim/include:$PYTHONPATH
+export PYTHONPATH=~/.vim/bin:$PYTHONPATH
+
+export CLASSPATH=~/.m2/repository/org/scala-lang/scala-library/2.11.7/scala-library-2.11.7.jar:$CLASSPATH
+export CLASSPATH=/opt/local/share/java/jline.jar:$CLASSPATH
+export CLASSPATH=/Library/Java/JavaVirtualMachines/jdk1.8.0_91.jdk/Contents/Home/lib/tools.jar:$CLASSPATH
+
+#export PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME%%.*}: ${PWD/#$HOME/~}\007"'
+
+# Activate ctrl+s in vim. 
+# Put this in ~/.local_bashrc for mac.
+#stty stop undef
+
+# activate ctrl-q, which is occupied in stty.
+# Put this in ~/.local_bashrc for mac.
+#stty -ixon > /dev/null 2>/dev/null
+
+export PYTHONIOENCODING=utf8
+
+export PROMPT_COMMAND='echo -ne "\033]0;$PWD\007"'
+export PS1='mac@\W\$ '
+
+# for spark Java.
+#export SPARK_CLASSPATH=/etc/hadoop/conf
+# for spark Python.
+export PYSPARK_PYTHON=/usr/bin/python27-virtual-hadoop
+
+alias _my_docker_dl='sudo docker run --gpus all -it --rm -v ~/summer201:/summer201 -w /summer201  summer-dl bash'
+alias _my_docker_dl_2='sudo docker run --runtime=nvidia -it --rm -v ~/summer201:/summer201 -w /summer201  summer-dl bash'
+
+source ~/.local_bashrc

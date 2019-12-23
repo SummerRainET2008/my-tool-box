@@ -1,0 +1,7 @@
+(ROOT
+   (S
+        (NP (NNP Shaodan) (NNP Zhai))
+            (VP (VBZ loves)
+                   (NP (NNP Zhongliang) (NNP Li)))
+                (. .)))
+
