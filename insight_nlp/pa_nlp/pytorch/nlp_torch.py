@@ -66,6 +66,66 @@ class RNNEncoder(nn.Module):
 
     return output
 
+# google's style
+class RNNEncoder1(nn.Module):
+  def __init__(self,
+               layer_num,
+               emb_dim,
+               hidden_dim,
+               out_dropout: float):
+    super(RNNEncoder1, self).__init__()
+
+    self._input_dense = Dense(nn.Linear(emb_dim, hidden_dim))
+
+    for layer_id in range(layer_num):
+      if layer_id == 0:
+        # we assume GRU works correctly in the bidirectional style.
+        layer = nn.GRU(
+          input_size=hidden_dim, hidden_size=hidden_dim, num_layers=1,
+          batch_first=True, bidirectional=True
+        )
+      else:
+        layer = nn.GRU(
+          input_size=hidden_dim, hidden_size=hidden_dim, num_layers=1,
+          batch_first=True, bidirectional=False
+        )
+
+      self.add_module(f"_layer_{layer_id}", layer)
+
+    self._combine_dense = Dense(nn.Linear(2 * hidden_dim, hidden_dim))
+    self._out_dropout = nn.Dropout(out_dropout)
+
+    self._layer_num = layer_num
+    self._hidden_dim = hidden_dim
+
+  def _init_hidden(self, batch_size):
+    weight = next(self.parameters())
+    hiddens = []
+    hiddens.append(weight.new_zeros(2, batch_size, self._hidden_dim))
+    for _ in range(1, self._layer_num):
+      hiddens.append(weight.new_zeros(1, batch_size, self._hidden_dim))
+
+    return hiddens
+
+  def forward(self, x, mask, packed_input=False):
+    '''
+    x: [batch, max-seq, emb-dim]
+    mask: [batch, max-seq]
+    '''
+    hiddens = self._init_hidden(x.size(0))
+    x = self._input_dense(x)
+    for layer_id in range(self._layer_num):
+      layer = getattr(self, f"_layer_{layer_id}")
+      input = x
+      x, _ = layer(x, hiddens[layer_id])
+      if layer_id == 0:
+        x = self._combine_dense(x)
+      x += input
+
+    x = self._out_dropout(x)
+
+    return x
+
 class Attention(nn.Module):
   def __init__(self,
                query_dim,
