@@ -21,6 +21,7 @@ class ParamBase(abc.ABC):
     self.lr = 0.001
     self.lr_decay = 0.99
     self.lr_min = 0.0005
+    self.l2 = 0
     
     self.epoch_num = 1
     self.batch_size = 32
