@@ -7,48 +7,45 @@ from pa_nlp.pytorch import *
 import torch
 
 class Dense(nn.Module):
-  def __init__(self, out_dim, activation=nn.functional.leaky_relu):
+  def __init__(self,
+               linear_layer: nn.Linear,
+               activation=nn.functional.leaky_relu):
     super(Dense, self).__init__()
-    self._out_dim = out_dim
+    self._linear_layer = linear_layer
     self._activation = activation if activation is not None else lambda x: x
-    self._net = None
 
-  def __call__(self, x: torch.Tensor):
-    if self._net is None:
-      in_dim = x.shape[-1]
-      self._net = nn.Linear(in_dim, self._out_dim)
-
-    out = self._net(x)
-    out = self._activation(out)
-
-    return out
+  def forward(self, x: torch.Tensor):
+    return self._activation(self._linear_layer(x))
 
 class RNNEncoder(nn.Module):
-  def __init__(self, layer_num, rnn_dim, out_dropout: float):
+  def __init__(self,
+               layer_num,
+               emb_dim,
+               hidden_dim,
+               out_dropout: float):
     super(RNNEncoder, self).__init__()
-    self._rnn_dim = rnn_dim
-    self._bi_rnn = None
-    self._combine_dense = Dense(rnn_dim)
+    self._bi_rnn = nn.GRU(
+      input_size=emb_dim, hidden_size=hidden_dim, num_layers=layer_num,
+      batch_first=True, bidirectional=True
+    )
+
+    self._combine_dense = Dense(nn.Linear(2 * hidden_dim, hidden_dim))
     self._out_dropout = nn.Dropout(out_dropout)
     self._layer_num = layer_num
 
+    self._hidden_dim = hidden_dim
+
   def _init_hidden(self, batch_size):
     weight = next(self.parameters())
-    hidden = weight.new_zeros(2 * self._layer_num, batch_size, self._rnn_dim)
+    hidden = weight.new_zeros(2 * self._layer_num, batch_size, self._hidden_dim)
 
     return hidden
 
   def forward(self, x, mask, packed_input=False):
     '''
-    x: [batch, max-seq, dim]
+    x: [batch, max-seq, emb-dim]
     mask: [batch, max-seq]
     '''
-    if self._bi_rnn is None:
-      self._bi_rnn = nn.GRU(
-        x.shape[2], self._rnn_dim, self._layer_num,
-        batch_first=True, bidirectional=True
-      )
-
     hidden = self._init_hidden(x.size(0))
     x_length = mask.sum(1)
 
@@ -70,11 +67,14 @@ class RNNEncoder(nn.Module):
     return output
 
 class Attention(nn.Module):
-  def __init__(self, atten_dim):
+  def __init__(self,
+               query_dim,
+               values_dim,
+               atten_dim):
     super(Attention, self).__init__()
-    self._query_dense = Dense(atten_dim)
-    self._values_dense = Dense(atten_dim)
-    self._logit_out = Dense(1)
+    self._query_dense = Dense(nn.Linear(query_dim, atten_dim))
+    self._values_dense = Dense(nn.Linear(values_dim, atten_dim))
+    self._logit_out = Dense(nn.Linear(atten_dim, 1))
 
   def forward(self, query, values, mask):
     '''
@@ -92,33 +92,27 @@ class Attention(nn.Module):
     return output
 
 class VallinaDecoder(nn.Module):
-  def __init__(self, hidden_dim, out_dropout):
+  def __init__(self,
+               emb_dim,
+               hidden_dim,
+               values_dim,
+               out_dropout):
     super(VallinaDecoder, self).__init__()
 
-    self._rnn_cell1 = None
-    self._rnn_cell2 = None
-    self._enc_attn = Attention(hidden_dim)
-
-    self._x_dense = Dense(hidden_dim)
-    self._context_dense = Dense(hidden_dim)
-    self._hidden_dense = Dense(hidden_dim)
+    self._rnn_cell1 = nn.GRUCell(emb_dim, hidden_dim)
+    self._enc_attn = Attention(hidden_dim, values_dim, values_dim)
+    self._rnn_cell2 = nn.GRUCell(values_dim, hidden_dim)
+    self._x_dense = Dense(nn.Linear(emb_dim, hidden_dim))
 
     self._out_dropout = nn.Dropout(out_dropout)
 
-    self._hidden_dim = hidden_dim
-
   def forward(self, x, hidden, enc_outputs, enc_mask):
     '''
-    x: [batch, hidden-dim]
+    x: [batch, emb-dim]
     hidden: [batch, hidden-dim]
     x_mask: [batch, max-seq]
     enc_output: [batch, max-seq, dim]
     '''
-    if self._rnn_cell1 is None:
-      self._rnn_cell1 = nn.GRUCell(x.shape[1], self._hidden_dim)
-    if self._rnn_cell2 is None:
-      self._rnn_cell2 = nn.GRUCell(enc_outputs.shape[2], self._hidden_dim)
-
     hidden = self._rnn_cell1(x, hidden)
     attn_enc = self._enc_attn(hidden, enc_outputs, enc_mask)
     hidden = self._rnn_cell2(attn_enc, hidden)
