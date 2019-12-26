@@ -95,13 +95,13 @@ class VallinaDecoder(nn.Module):
   def __init__(self,
                emb_dim,
                hidden_dim,
-               values_dim,
+               enc_outputs_dim,
                out_dropout):
     super(VallinaDecoder, self).__init__()
 
     self._rnn_cell1 = nn.GRUCell(emb_dim, hidden_dim)
-    self._enc_attn = Attention(hidden_dim, values_dim, values_dim)
-    self._rnn_cell2 = nn.GRUCell(values_dim, hidden_dim)
+    self._enc_attn = Attention(hidden_dim, enc_outputs_dim, enc_outputs_dim)
+    self._rnn_cell2 = nn.GRUCell(enc_outputs_dim, hidden_dim)
     self._x_dense = Dense(nn.Linear(emb_dim, hidden_dim))
 
     self._out_dropout = nn.Dropout(out_dropout)
