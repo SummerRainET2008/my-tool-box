@@ -149,7 +149,15 @@ class TrainerBase(abc.ABC):
 
   def train(self):
     batch_num, total_loss = 0, 0.
-    for epoch_id, batch in self._train_data_iter:
+    while True:
+      try:
+        start_time = time.time()
+        epoch_id, batch  = next(self._train_data_iter)
+        duration = time.time() - start_time
+        Logger.debug(f"batch data fetch time: {duration} sec.")
+      except StopIteration:
+        break
+
       start_time = time.time()
       self._model.train()
       batch = [e.to(self._device) for e in batch]
