@@ -9,12 +9,14 @@ import torch
 from torch.optim import Optimizer
 
 class TrainerBase(abc.ABC):
-  def __init__(self, param: ParamBase, model, train_data_iter,
+  def __init__(self, gpu_id: int, param: ParamBase, model, train_data_iter,
                optimizer: typing.Union[Optimizer, None]=None):
-    self._param = param
-    self._train_data_iter = train_data_iter
-    self._model = model
-    
+    if gpu_id < 0:
+      self._device = torch.device("cpu")
+    else:
+      self._device = torch.device(f"cuda:{gpu_id}")
+      model = model.to(self._device)
+
     if not param.incremental_train:
       nlp.ensure_folder_exists(param.path_model, True)
 
@@ -38,8 +40,12 @@ class TrainerBase(abc.ABC):
       self._optimizer = optimizer
     else:
       self._optimizer = getattr(torch.optim, param.optimizer_name)(
-        self._model.parameters(), lr=param.lr, weight_decay=param.l2
+        model.parameters(), lr=param.lr, weight_decay=param.l2
       )
+
+    self._param = param
+    self._train_data_iter = train_data_iter
+    self._model = model
 
     self.load_model()
 
@@ -146,6 +152,7 @@ class TrainerBase(abc.ABC):
     for epoch_id, batch in self._train_data_iter:
       start_time = time.time()
       self._model.train()
+      batch = [e.to(self._device) for e in batch]
       batch_loss = self._train_one_batch(*batch)
       duration = time.time() - start_time
 
