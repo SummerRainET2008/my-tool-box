@@ -113,7 +113,7 @@ class TrainerBase(abc.ABC):
     param = self._param
     name = f'model_{self._global_batch_id}.pt'
     nlp.execute_cmd(
-      f"cat {self._global_batch_id} >> {param.path_model}/checkpoint"
+      f"echo {self._global_batch_id} >> {param.path_model}/checkpoint"
     )
 
     torch.save(
