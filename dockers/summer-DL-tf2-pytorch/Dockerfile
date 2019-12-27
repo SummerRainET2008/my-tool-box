@@ -15,7 +15,7 @@ RUN python3 -m pip install pillow
  
 #Define the ENV variable
 #ENV nginx_vhost /etc/nginx/sites-available/default
-ENV PYTHONPATH /summer201/insight_nlp:$PYTHONPATH 
+ENV PYTHONPATH /summer201/my-tool-box/insight_nlp:$PYTHONPATH 
 
 # Volume configuration
 #VOLUME ["/home/summer/summer201"]
