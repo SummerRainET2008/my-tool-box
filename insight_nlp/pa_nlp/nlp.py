@@ -363,3 +363,6 @@ def display_server_info():
   ip = socket.gethostbyname(host_name)
   print(f"server information: {host_name}: {ip}, process: {os.getpid()}")
 
+def get_pretrained_model(model_name="roberta/roberta.large"):
+  return os.path.expanduser(f"~/pretrained_models/{model_name}")
+

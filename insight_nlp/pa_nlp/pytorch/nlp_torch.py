@@ -17,6 +17,49 @@ class Dense(nn.Module):
   def forward(self, x: torch.Tensor):
     return self._activation(self._linear_layer(x))
 
+class MultiHeadAttention(nn.Module):
+  def __init__(self, dim, multihead=4):
+    super(MultiHeadAttention, self).__init__()
+    self._multihead_att = nn.MultiheadAttention(dim, multihead)
+
+  def forward(self, query, values, key_mask=None):
+    '''
+    query: [seq-len, batch, dim]
+    values: [seq-len, batch, dim]
+    key_mask: [batch, seq-len]
+    '''
+    output, weights = self._multihead_att(
+      query, values, values, key_padding_mask=key_mask
+    )
+
+    return output
+
+class InnerAttention(nn.Module):
+  def __init__(self, dim, atten_dim=512, multihead=4):
+    super(InnerAttention, self).__init__()
+    self._input_dense = Dense(nn.Linear(dim, atten_dim))
+    self._multihead_att = MultiHeadAttention(atten_dim, multihead)
+    self._query = nn.Parameter(torch.Tensor(1, 1, atten_dim))
+    self._output_dense = Dense(nn.Linear(atten_dim, dim))
+
+    self._reset_weights()
+
+  def _reset_weights(self):
+    # nn.init.xavier_uniform_(self._query)
+    nn.init.uniform_(self._query, 0, 1)
+
+  def forward(self, values, key_mask=None):
+    '''
+    values: [seq-len, batch, dim]
+    key_mask: [batch, seq-len]
+    '''
+    values = self._input_dense(values)
+    query = self._query.expand(1, values.size(1), -1)
+    output = self._multihead_att(query, values, key_mask)
+    output = self._output_dense(output)
+
+    return output.squeeze(0)
+
 class RNNEncoder(nn.Module):
   def __init__(self,
                layer_num,
