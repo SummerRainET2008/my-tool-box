@@ -17,6 +17,31 @@ class Dense(nn.Module):
   def forward(self, x: torch.Tensor):
     return self._activation(self._linear_layer(x))
 
+class Attention(nn.Module):
+  def __init__(self,
+               query_dim,
+               values_dim,
+               atten_dim):
+    super(Attention, self).__init__()
+    self._query_dense = Dense(nn.Linear(query_dim, atten_dim))
+    self._values_dense = Dense(nn.Linear(values_dim, atten_dim))
+    self._logit_out = Dense(nn.Linear(atten_dim, 1))
+
+  def forward(self, query, values, mask):
+    '''
+    query: [batch, dim]
+    values: [batch, len, dim]
+    mask: [batch, max-seq], IntTensor
+    '''
+    m = self._values_dense(values)
+    m += self._query_dense(query).unsqueeze(1).expand_as(m)
+    logit = self._logit_out(torch.tanh(m)).squeeze(2)
+    logit.data.masked_fill_(torch.logical_not(mask), -1e-9)
+    prob = nn.functional.softmax(logit, dim=1)
+    output = prob.unsqueeze(1).matmul(values).squeeze(1)
+
+    return output
+
 class MultiHeadAttention(nn.Module):
   def __init__(self, dim, multihead=4):
     super(MultiHeadAttention, self).__init__()
@@ -169,31 +194,6 @@ class RNNEncoder1(nn.Module):
 
     return x
 
-class Attention(nn.Module):
-  def __init__(self,
-               query_dim,
-               values_dim,
-               atten_dim):
-    super(Attention, self).__init__()
-    self._query_dense = Dense(nn.Linear(query_dim, atten_dim))
-    self._values_dense = Dense(nn.Linear(values_dim, atten_dim))
-    self._logit_out = Dense(nn.Linear(atten_dim, 1))
-
-  def forward(self, query, values, mask):
-    '''
-    query: [batch, dim]
-    values: [batch, len, dim]
-    mask: [batch, max-seq], IntTensor
-    '''
-    m = self._values_dense(values)
-    m += self._query_dense(query).unsqueeze(1).expand_as(m)
-    logit = self._logit_out(torch.tanh(m)).squeeze(2)
-    logit.data.masked_fill_(torch.logical_not(mask), -1e-9)
-    prob = nn.functional.softmax(logit, dim=1)
-    output = prob.unsqueeze(1).matmul(values).squeeze(1)
-
-    return output
-
 class VallinaDecoder(nn.Module):
   def __init__(self,
                emb_dim,
@@ -225,6 +225,5 @@ class VallinaDecoder(nn.Module):
     output = self._out_dropout(output)
 
     return output, hidden
-
 
 
