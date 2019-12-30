@@ -67,9 +67,9 @@ class InnerAttention(nn.Module):
     self._query = nn.Parameter(torch.Tensor(1, 1, atten_dim))
     self._output_dense = Dense(nn.Linear(atten_dim, dim))
 
-    self._reset_weights()
+    self._init_weights()
 
-  def _reset_weights(self):
+  def _init_weights(self):
     # nn.init.xavier_uniform_(self._query)
     nn.init.uniform_(self._query, 0, 1)
 
