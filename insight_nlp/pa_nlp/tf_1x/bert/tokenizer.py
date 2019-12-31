@@ -8,6 +8,15 @@ class Tokenizer:
       self._vocab_file, self._do_lower_case
     )
 
+  @staticmethod
+  def get_instance(vocab_file, do_lower_case=True, buff={}):
+    key = f"{vocab_file}:{do_lower_case}"
+    if key in buff:
+      return buff[key]
+
+    buff[key] = Tokenizer(vocab_file, do_lower_case)
+    return buff[vocab_file]
+
   def sentence_to_tokens(self, sentence):
     '''
     :param sentence: input English sentence

@@ -22,6 +22,14 @@ class BertTokenizer:
     self.id_sep = self._tokenizer.convert_tokens_to_ids(["[SEP]"])[0]
     self.id_mask = self._tokenizer.convert_tokens_to_ids(["[MASK]"])[0]
 
+  @staticmethod
+  def get_instance(model_dir, buff={}):
+    if model_dir in buff:
+      return buff[model_dir]
+
+    buff[model_dir] = BertTokenizer(model_dir)
+    return buff[model_dir]
+
   def _convert_one(self, sent: str):
     tokens = self._tokenizer.tokenize(sent)
     token_ids = self._tokenizer.convert_tokens_to_ids(tokens)
