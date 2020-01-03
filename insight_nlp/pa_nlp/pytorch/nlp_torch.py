@@ -6,16 +6,39 @@ from pa_nlp import nlp
 from pa_nlp.pytorch import *
 import torch
 
-class Dense(nn.Module):
-  def __init__(self,
-               linear_layer: nn.Linear,
-               activation=nn.functional.leaky_relu):
-    super(Dense, self).__init__()
-    self._linear_layer = linear_layer
-    self._activation = activation if activation is not None else lambda x: x
+class Gelu(nn.Module):
+  def __init__(self):
+    super(Gelu, self).__init__()
+
+  def forward(self, x):
+    return x * 0.5 * (1.0 + torch.erf(x / math.sqrt(2.0)))
+
+class FFN(nn.Module):
+  def __init__(self, input_dim, hidden_dim, output_dim,
+               activation: nn.Module=Gelu(), dropout=0):
+    super(FFN, self).__init__()
+    self._layer = torch.nn.Sequential(
+      torch.nn.Linear(input_dim, hidden_dim),
+      activation,
+      torch.nn.Dropout(dropout),
+      torch.nn.Linear(hidden_dim, output_dim)
+    )
 
   def forward(self, x: torch.Tensor):
-    return self._activation(self._linear_layer(x))
+    return self._layer(x)
+
+class Dense(nn.Module):
+  def __init__(self, linear_layer: nn.Linear, activation: nn.LeakyReLU()):
+    super(Dense, self).__init__()
+    if activation is None:
+      self._layer = linear_layer
+    else:
+      self._layer = nn.Sequential(
+        linear_layer, activation
+      )
+
+  def forward(self, x: torch.Tensor):
+    return self._layer(x)
 
 class Attention(nn.Module):
   def __init__(self,
