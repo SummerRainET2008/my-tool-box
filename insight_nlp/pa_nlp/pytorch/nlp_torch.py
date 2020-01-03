@@ -6,6 +6,13 @@ from pa_nlp import nlp
 from pa_nlp.pytorch import *
 import torch
 
+class Swish(nn.Module):
+  def __init__(self):
+    super(Swish, self).__init__()
+
+  def forward(self, x):
+    return x * torch.sigmoid(x)
+
 class Gelu(nn.Module):
   def __init__(self):
     super(Gelu, self).__init__()
@@ -17,7 +24,7 @@ class FFN(nn.Module):
   def __init__(self, input_dim, hidden_dim, output_dim,
                activation: nn.Module=Gelu(), dropout=0):
     super(FFN, self).__init__()
-    self._layer = torch.nn.Sequential(
+    self._layer = nn.Sequential(
       torch.nn.Linear(input_dim, hidden_dim),
       activation,
       torch.nn.Dropout(dropout),
@@ -216,6 +223,20 @@ class RNNEncoder1(nn.Module):
     x = self._out_dropout(x)
 
     return x
+
+class ResidualGRU(nn.Module):
+  def __init__(self, hidden_size, dropout=0.1, num_layers=2):
+    super(ResidualGRU, self).__init__()
+    self._enc_layer = nn.GRU(
+      input_size=hidden_size, hidden_size=hidden_size // 2,
+      num_layers=num_layers, batch_first=True, dropout=dropout,
+      bidirectional=True
+    )
+    self._out_norm = nn.LayerNorm(hidden_size)
+
+  def forward(self, input):
+    output, _ = self._enc_layer(input)
+    return self._out_norm(output + input)
 
 class VallinaDecoder(nn.Module):
   def __init__(self,
