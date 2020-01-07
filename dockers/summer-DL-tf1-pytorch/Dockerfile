@@ -12,6 +12,7 @@ RUN python3 -m pip install nltk
 RUN python3 -m pip install params_flow
 RUN python3 -m pip install flask 
 RUN python3 -m pip install pillow 
+RUN python3 -m pip install allennlp 
  
 #Define the ENV variable
 #ENV nginx_vhost /etc/nginx/sites-available/default
