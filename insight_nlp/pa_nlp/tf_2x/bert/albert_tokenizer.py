@@ -19,6 +19,14 @@ class AlBertTokenizer(BertTokenizer):
     self.id_sep = self._sp.PieceToId("[SEP]")
     self.id_mask = self._sp.PieceToId("[MASK]")
 
+  @staticmethod
+  def get_instance(model_dir, buff={}):
+    if model_dir in buff:
+      return buff[model_dir]
+
+    buff[model_dir] = AlBertTokenizer(model_dir)
+    return buff[model_dir]
+
   def _convert_one(self, sent: str):
     processed_text = bert.albert_tokenization.preprocess_text(
       sent, lower=self._do_lower_case
