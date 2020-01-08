@@ -5,3 +5,4 @@
 {'name': '224', 'password': 'common', 'account': 'summer', 'ip': '192.168.1.224', 'memo': 'borrowed to ASR'}
 {'name': '225', 'password': 'common', 'account': 'summer', 'ip': '192.168.1.225'}
 {'name': 'robot', 'password': '', 'account': 'ubuntu', 'ip': 'ec2-54-169-158-182.ap-southeast-1.compute.amazonaws.com'}
+{'name': '8gpu', 'password': 'common', 'account': 'summer', 'ip': '209.172.89.182'}
