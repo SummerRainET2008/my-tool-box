@@ -162,27 +162,27 @@ note: --runtime=nvidia in 225, nightly-gpu-py3
 #   >> klist
 
 : 'topic=git
-# ---git add a remote bare repository
-# 1. In the server, >> git init --bare
-# 2. In the client, >> git remote add TianXia git@sever-IP:/home/git/folder
-# 3. >> git pull TianXia master
-# 4. Set stream: >> git push --set-upstream TianXia master 
-# 5. copy key into git server to survive password.
-#
-# >> git config --global core.editor "vim"
-# >> git config --global diff.tool vimdiff
-#
-# cache username and password
-# >> git credential-osxkeychain
-# >> git config --global credential.helper osxkeychain
-# >> git config credential.helper store      
-# >> git config --global --unset credential.helper # clear password cache.
-# store in memory
-# >> git config --global credential.helper cache; git config --global credential.helper 'cache --timeout=86400'  
-# store for one day.
-#
-# support non-ascii file name
-# >>git config core.quotepath off
+---git add a remote bare repository
+1. In the server, >> git init --bare
+2. In the client, >> git remote add TianXia git@sever-IP:/home/git/folder
+3. >> git pull TianXia master
+4. Set stream: >> git push --set-upstream TianXia master 
+5. copy key into git server to survive password.
+
+>> git config --global core.editor "vim"
+>> git config --global diff.tool vimdiff
+
+cache username and password
+>> git credential-osxkeychain
+>> git config --global credential.helper osxkeychain
+>> git config credential.helper store      
+>> git config --global --unset credential.helper # clear password cache.
+store in memory
+>> git config --global credential.helper cache; git config --global credential.helper 'cache --timeout=86400'  
+store for one day.
+
+support non-ascii file name
+>>git config core.quotepath off
 '
 
 # nosetest
