@@ -13,6 +13,14 @@ RUN python3 -m pip install params_flow
 RUN python3 -m pip install flask 
 RUN python3 -m pip install pillow 
 RUN python3 -m pip install allennlp 
+RUN python3 -m pip install word2number
+RUN python3 -m pip install sklearn 
+RUN python3 -m pip install Pillow 
+RUN python3 -m pip install matplotlib 
+RUN python3 -m pip install beautifulsoup4 
+RUN python3 -m pip install html5lib 
+RUN python3 -m pip install httplib2 
+RUN python3 -m pip install jieba 
  
 #Define the ENV variable
 #ENV nginx_vhost /etc/nginx/sites-available/default
