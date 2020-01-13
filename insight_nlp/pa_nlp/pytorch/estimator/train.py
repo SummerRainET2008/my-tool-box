@@ -9,13 +9,17 @@ import torch
 from torch.optim import Optimizer
 
 class TrainerBase(abc.ABC):
-  def __init__(self, gpu_id: int, param: ParamBase, model, train_data_iter,
-               optimizer: typing.Union[Optimizer, None]=None):
-    if gpu_id < 0:
+  def __init__(self, param: ParamBase, model,
+               train_data_iter, optimizer: typing.Union[Optimizer, None]=None):
+    gpu_ids = param.gpus
+    assert isinstance(gpu_ids, list)
+    if len(gpu_ids) == 0:
       self._device = torch.device("cpu")
     else:
-      self._device = torch.device(f"cuda:{gpu_id}")
-      model = model.to(self._device)
+      self._device = torch.device(f"cuda:{gpu_ids[0]}")
+      model = model.to(
+        self._device, device_ids=[f"cuda:{gid}" for gid in gpu_ids]
+      )
 
     if not param.incremental_train:
       nlp.ensure_folder_exists(param.path_model, True)

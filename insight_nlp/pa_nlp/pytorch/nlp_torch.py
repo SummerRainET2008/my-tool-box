@@ -35,7 +35,7 @@ class FFN(nn.Module):
     return self._layer(x)
 
 class Dense(nn.Module):
-  def __init__(self, linear_layer: nn.Linear, activation: nn.LeakyReLU()):
+  def __init__(self, linear_layer: nn.Linear, activation=nn.LeakyReLU()):
     super(Dense, self).__init__()
     if activation is None:
       self._layer = linear_layer
