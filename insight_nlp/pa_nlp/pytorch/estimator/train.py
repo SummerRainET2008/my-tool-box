@@ -50,34 +50,44 @@ class TrainerBase(abc.ABC):
     self._model = model
 
     self.load_model()
+    
+  def step_optimizer(self, buff={}):
+    param_groups = self._optimizer.param_groups 
+    if "lr" not in buff:
+      buff["lr"] = [group["lr"] for group in param_groups]
 
-  def _get_learning_rate(self):
-    #print(f"get_learning_rate")
-    '''param = self._param
-    lr = param.lr
-    global_step = self._checkpoint.global_batch_step
-    if param.use_polynormial_decay:
-      if param.use_warmup:
-        lr = self._lr_decay(global_step - param.warmup_steps)
-      else:
-        lr = self._lr_decay(global_step)
+    lr_ratio = self._get_lr_ratio()
+    for group, lr in zip(param_groups, buff["lr"]):
+      group["lr"] = lr * lr_ratio
+    Logger.info(f"learning rates:", [g["lr"] for g in param_groups])   
+      
+    self._optimizer.step()   
 
+  def _get_lr_ratio(self, buff={}):
+    '''
+    As there may have different learning rates, we only return the ratio of
+    current learning rate divided by the designated learning rate. 
+    '''
+    param = self._param
     if param.use_warmup:
-      assert param.warmup_steps is not None
-
-      global_steps_int = nlp_tf.to_int(global_step)
-      warmup_steps_int = tf.constant(param.warmup_steps, dtype=tf.int32)
-
-      global_steps_float = nlp_tf.to_double(global_steps_int)
-      warmup_steps_float = nlp_tf.to_double(warmup_steps_int)
-
-      warmup_percent_done = global_steps_float / warmup_steps_float
-      warmup_lr = param.lr * warmup_percent_done
-
-      is_warmup = nlp_tf.to_double(global_steps_int < warmup_steps_int)
-      lr = (1.0 - is_warmup) * lr + is_warmup * warmup_lr'''
-
-    return self._param.lr
+      ratio = (self._global_batch_id + 1) / param.warmup_steps
+      if ratio <= 1:
+        return ratio
+      
+      else:
+        if param.use_polynormial_decay:
+          ratio = 1 - (self._global_batch_id - param.warmup_steps) / \
+                  (param.train_sample_num - param.warmup_steps)
+          return ratio
+        else:
+          return 1
+        
+    else:
+      if param.use_polynormial_decay:
+        ratio = 1 - self._global_batch_id / param.train_sample_num
+        return ratio
+      else:
+        return 1
 
   def load_model(self):
     param = self._param

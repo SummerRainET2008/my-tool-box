@@ -48,6 +48,12 @@ class ParamBase(abc.ABC):
     self.batch_size = max(1, len(self.gpus)) * self.base_batch_size
 
   def verify(self):
+    if self.use_warmup:
+      assert self.warmup_steps is not None
+    
+    if self.use_polynormial_decay:
+      assert self.train_sample_num is not None
+    
     for file in self.train_files + self.test_files:
       for real_file in glob.glob(file):
         assert nlp.ensure_file_exist(real_file)
@@ -56,5 +62,6 @@ class ParamBase(abc.ABC):
     for key in self.__dict__:
       Logger.info(f"{key:20}: {self.__dict__[key]}")
     Logger.info("-" * 64, "\n")
+    
 
 
