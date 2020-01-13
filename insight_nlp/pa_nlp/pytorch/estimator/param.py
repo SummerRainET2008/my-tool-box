@@ -26,7 +26,9 @@ class ParamBase(abc.ABC):
     self.l2 = 0
     
     self.epoch_num = 1
-    self.batch_size = 32
+    self.gpus = []
+    self.base_batch_size = 32     # for each GPU
+    self.batch_size = None
     self.virtual_batch_ratio = 1  
     self.evaluate_freq = None # in batch number
 
@@ -41,6 +43,9 @@ class ParamBase(abc.ABC):
 
     self.use_warmup = True
     self.warmup_steps = None
+
+  def set_batch_size(self):
+    self.batch_size = max(1, len(self.gpus)) * self.base_batch_size
 
   def verify(self):
     for file in self.train_files + self.test_files:
