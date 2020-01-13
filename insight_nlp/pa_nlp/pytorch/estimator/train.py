@@ -1,11 +1,8 @@
 #author: Tian Xia (SummerRainET2008@gmail.com)
 
-from pa_nlp import *
-from pa_nlp.nlp import Logger
-from pa_nlp import nlp
-from pa_nlp.pytorch import nlp_torch
 from pa_nlp.pytorch.estimator.param import ParamBase
 import torch
+from pa_nlp.pytorch import *
 from torch.optim import Optimizer
 
 class TrainerBase(abc.ABC):
@@ -17,9 +14,10 @@ class TrainerBase(abc.ABC):
       self._device = torch.device("cpu")
     else:
       self._device = torch.device(f"cuda:{gpu_ids[0]}")
-      model = model.to(
-        self._device, device_ids=[f"cuda:{gid}" for gid in gpu_ids]
+      model = nn.DataParallel(
+        model, device_ids=[f"cuda:{gid}" for gid in gpu_ids]
       )
+    model = model.to(self._device)
 
     if not param.incremental_train:
       nlp.ensure_folder_exists(param.path_model, True)
