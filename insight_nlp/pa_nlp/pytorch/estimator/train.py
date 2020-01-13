@@ -151,6 +151,7 @@ class TrainerBase(abc.ABC):
 
   def train(self):
     batch_num, total_loss = 0, 0.
+    train_start_time = time.time()
     while True:
       try:
         start_time = time.time()
@@ -170,10 +171,12 @@ class TrainerBase(abc.ABC):
       total_loss += batch_loss
       self._run_sample_num += batch[0].size(0)
       self._global_batch_id += 1
+      train_duration = time.time() - train_start_time
       Logger.info(
         f"Epoch: {epoch_id} batch: {self._global_batch_id} "
         f"samples: {self._run_sample_num} "
         f"loss: {batch_loss} time: {duration:.4f} "
+        f"training time: {nlp.to_readable_time(train_duration)} "
       )
 
       if batch_num % 5 == 0:

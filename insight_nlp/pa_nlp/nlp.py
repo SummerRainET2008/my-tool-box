@@ -230,26 +230,7 @@ def is_none_or_empty(data)-> bool:
   return False
 
 def to_readable_time(seconds: float):
-  result = []
-  days = int(seconds // (3600 * 24))
-  if days > 0:
-    result.append(f"{days} d")
-    seconds -= days * 3600 * 24
-
-  hours = int(seconds // 3600)
-  if hours > 0:
-    result.append(f"{hours} h")
-    seconds -= 3600 * hours
-
-  minutes = int(seconds // 60)
-  if minutes > 0:
-    result.append(f"{minutes} m")
-    seconds -= 60 * minutes
-
-  if seconds > 0:
-    result.append(f"{seconds:.3} s")
-
-  return " ".join(result)
+  return str(datetime.timedelta(seconds=seconds))  
 
 def get_log_time():
   return time.strftime('%x %X')
