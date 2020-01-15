@@ -22,21 +22,10 @@ class TrainerBase(abc.ABC):
     if not param.incremental_train:
       nlp.ensure_folder_exists(param.path_model, True)
 
-    self._global_batch_id = 0
+    self._global_step_id = 0
     self._opt_vali_error = 0
     self._run_sample_num = 0
     self._last_vali_sample_num = 0
-
-    if param.use_polynormial_decay:
-      assert param.train_sample_num is not None
-      total_step = param.train_sample_num * param.epoch_num // param.batch_size
-      if param.use_warmup:
-        total_step -= param.warmup_steps
-      assert total_step > 0
-
-      # self._lr_decay = tf.keras.optimizers.schedules.PolynomialDecay(
-      #   param.lr, total_step, end_learning_rate=0.,
-      # )
 
     if optimizer is not None:
       self._optimizer = optimizer
@@ -51,7 +40,7 @@ class TrainerBase(abc.ABC):
 
     self.load_model()
     
-  def step_optimizer(self, buff={}):
+  def _step_optimizer(self, buff={}):
     param_groups = self._optimizer.param_groups 
     if "lr" not in buff:
       buff["lr"] = [group["lr"] for group in param_groups]
@@ -69,22 +58,25 @@ class TrainerBase(abc.ABC):
     current learning rate divided by the designated learning rate. 
     '''
     param = self._param
+    total_steps = math.ceil(
+      param.train_sample_num * param.epoch_num / param._real_batch_size
+    )
     if param.use_warmup:
-      ratio = (self._global_batch_id + 1) / param.warmup_steps
+      ratio = (self._global_step_id + 1) / param.warmup_steps
       if ratio <= 1:
         return ratio
       
       else:
         if param.use_polynormial_decay:
-          ratio = 1 - (self._global_batch_id - param.warmup_steps) / \
-                  (param.train_sample_num - param.warmup_steps)
+          ratio = 1 - (self._global_step_id - param.warmup_steps) / \
+                  (total_steps - param.warmup_steps)
           return ratio
         else:
           return 1
         
     else:
       if param.use_polynormial_decay:
-        ratio = 1 - self._global_batch_id / param.train_sample_num
+        ratio = 1 - self._global_step_id / total_steps 
         return ratio
       else:
         return 1
@@ -101,7 +93,7 @@ class TrainerBase(abc.ABC):
       model_file = f"{param.path_model}/model_{g_batch_id}.pt"
       checked_data = torch.load(model_file)
 
-      self._global_batch_id = checked_data[0]
+      self._global_step_id = checked_data[0]
       self._opt_vali_error = checked_data[1]
       self._run_sample_num = checked_data[2]
       state_dict = checked_data[3]
@@ -123,14 +115,14 @@ class TrainerBase(abc.ABC):
 
   def save_model(self):
     param = self._param
-    name = f'model_{self._global_batch_id}.pt'
+    name = f'model_{self._global_step_id}.pt'
     nlp.execute_cmd(
-      f"echo {self._global_batch_id} >> {param.path_model}/checkpoint"
+      f"echo {self._global_step_id} >> {param.path_model}/checkpoint"
     )
 
     torch.save(
       [
-        self._global_batch_id,
+        self._global_step_id,
         self._opt_vali_error,
         self._run_sample_num,
         self._model.state_dict()
@@ -159,31 +151,48 @@ class TrainerBase(abc.ABC):
   def _train_one_batch(self, *batch)-> float:
     pass
 
-  def train(self):
-    batch_num, total_loss = 0, 0.
-    train_start_time = time.time()
+  def _get_batch_data(self):
     while True:
       try:
         start_time = time.time()
         epoch_id, batch  = next(self._train_data_iter)
+        batch = [e.to(self._device) for e in batch]
         duration = time.time() - start_time
         Logger.debug(f"batch data fetch time: {duration} sec.")
+        yield epoch_id, batch
+
       except StopIteration:
         break
 
+  def train(self):
+    batch_num, total_loss = 0, 0.
+    train_start_time = time.time()
+    batch_iter = self._get_batch_data()
+
+    while True:
       start_time = time.time()
       self._model.train()
-      batch = [e.to(self._device) for e in batch]
-      batch_loss = self._train_one_batch(*batch)
+      self._optimizer.zero_grad()
+      batch_loss = []
+      for _, [epoch_id, batch] in zip(
+        range(self._param.iter_num_update_optimizer), batch_iter
+      ):
+        single_batch_loss = self._train_one_batch(*batch)
+        single_batch_loss.backward()
+        batch_loss.append(single_batch_loss.detach().numpy())
+        self._run_sample_num += batch[0].size(0)
+
+      torch.nn.utils.clip_grad_norm_(self._model.parameters(), 5)
+      self._step_optimizer()
+      batch_loss = sum(batch_loss) / len(batch_loss)
       duration = time.time() - start_time
 
       batch_num += 1
       total_loss += batch_loss
-      self._run_sample_num += batch[0].size(0)
-      self._global_batch_id += 1
+      self._global_step_id += 1
       train_duration = time.time() - train_start_time
       Logger.info(
-        f"Epoch: {epoch_id} batch: {self._global_batch_id} "
+        f"Epoch: {epoch_id} batch: {self._global_step_id} "
         f"samples: {self._run_sample_num} "
         f"loss: {batch_loss} time: {duration:.4f} "
         f"training time: {nlp.to_readable_time(train_duration)} "

@@ -27,10 +27,13 @@ class ParamBase(abc.ABC):
     
     self.epoch_num = 1
     self.gpus = []
-    self.base_batch_size = 32     # for each GPU
-    self.batch_size = None
-    self.virtual_batch_ratio = 1  
-    self.evaluate_freq = None # in batch number
+    self.single_GPU_batch_size = 32
+    # This is considering multiple GPUs. Do NOT set this.
+    self._batch_size = None
+    # Do NOT set this.
+    self._real_batch_size = None
+    self.iter_num_update_optimizer = 1
+    self.evaluate_freq = None       # in batch number
 
     self.train_files = []
     self.vali_file = ""
@@ -45,7 +48,8 @@ class ParamBase(abc.ABC):
     self.warmup_steps = None
 
   def set_batch_size(self):
-    self.batch_size = max(1, len(self.gpus)) * self.base_batch_size
+    self._batch_size = max(1, len(self.gpus)) * self.single_GPU_batch_size
+    self._real_batch_size = self._batch_size * self.iter_num_update_optimizer
 
   def verify(self):
     if self.use_warmup:
@@ -53,7 +57,11 @@ class ParamBase(abc.ABC):
     
     if self.use_polynormial_decay:
       assert self.train_sample_num is not None
-    
+
+    assert self._batch_size is not None
+    assert self._real_batch_size is not None
+    assert self.iter_num_update_optimizer is not None
+
     for file in self.train_files + self.test_files:
       for real_file in glob.glob(file):
         assert nlp.ensure_file_exist(real_file)
