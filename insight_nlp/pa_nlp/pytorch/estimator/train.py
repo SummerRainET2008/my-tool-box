@@ -81,8 +81,8 @@ class TrainerBase(abc.ABC):
         Logger.info("No model to load")
         return
 
-      g_batch_id = open(check_point_file).readlines()[-1]
-      model_file = f"{param.path_model}/model_{g_batch_id}.pt"
+      model_name = open(check_point_file).readlines()[-1].strip()
+      model_file = f"{param.path_model}/{model_name}"
       checked_data = torch.load(model_file)
 
       self._global_step_id = checked_data[0]
@@ -109,7 +109,7 @@ class TrainerBase(abc.ABC):
     param = self._param
     name = f'model_{self._global_step_id}.pt'
     nlp.execute_cmd(
-      f"echo {self._global_step_id} >> {param.path_model}/checkpoint"
+      f"echo {name} >> {param.path_model}/checkpoint"
     )
 
     torch.save(
@@ -121,7 +121,6 @@ class TrainerBase(abc.ABC):
       ],
       os.path.join(param.path_model, name)
     )
-
 
   def _try_to_save_best_model(self):
     if nlp.is_none_or_empty(self._param.vali_file):
@@ -207,7 +206,7 @@ class TrainerBase(abc.ABC):
 
   def _when_evaluate(self):
     diff = self._run_sample_num - self._last_vali_sample_num
-    if diff >= self._param.evaluate_freq:
+    if diff >= self._param.eval_gap_instance_num:
       self._last_vali_sample_num = self._run_sample_num
       return True
 

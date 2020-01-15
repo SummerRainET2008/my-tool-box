@@ -34,7 +34,7 @@ class ParamBase(abc.ABC):
     # Do NOT set this.
     self._real_batch_size = None
     self.iter_num_update_optimizer = 1
-    self.evaluate_freq = None       # in batch number
+    self.eval_gap_instance_num = None
 
     self.train_files = []
     self.vali_file = ""
@@ -56,6 +56,7 @@ class ParamBase(abc.ABC):
     assert self._batch_size is not None, "you have to call param.update()"
     assert self._real_batch_size is not None, "you have to call param.update()"
     assert self.iter_num_update_optimizer is not None
+    assert self.eval_gap_instance_num is not None
 
     for file in self.train_files + self.test_files:
       for real_file in glob.glob(file):
