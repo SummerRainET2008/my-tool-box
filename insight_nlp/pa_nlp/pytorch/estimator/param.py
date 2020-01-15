@@ -24,6 +24,7 @@ class ParamBase(abc.ABC):
     self.lr_decay = 0.99
     self.lr_min = 0.0005
     self.l2 = 0
+    self.param_norm = 5
     
     self.epoch_num = 1
     self.gpus = []

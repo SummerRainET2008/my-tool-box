@@ -174,15 +174,21 @@ class TrainerBase(abc.ABC):
       self._model.train()
       self._optimizer.zero_grad()
       batch_loss = []
+
       for _, [epoch_id, batch] in zip(
         range(self._param.iter_num_update_optimizer), batch_iter
       ):
         single_batch_loss = self._train_one_batch(*batch)
         single_batch_loss.backward()
-        batch_loss.append(single_batch_loss.detach().numpy())
+        batch_loss.append(single_batch_loss.cpu().detach().numpy())
         self._run_sample_num += batch[0].size(0)
+        
+      if len(batch_loss) == 0:
+        break
 
-      torch.nn.utils.clip_grad_norm_(self._model.parameters(), 5)
+      torch.nn.utils.clip_grad_norm_(
+        self._model.parameters(), self._param.param_norm
+      )
       self._step_optimizer()
       batch_loss = sum(batch_loss) / len(batch_loss)
       duration = time.time() - start_time
