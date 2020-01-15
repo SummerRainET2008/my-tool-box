@@ -1,4 +1,4 @@
-:'topic=network connection
+: 'topic=network connection
 [[https://linuxize.com/post/how-to-setup-a-firewall-with-ufw-on-ubuntu-18-04/]]
 
 >> sudo apt install ufw
@@ -13,7 +13,7 @@
 >> sudo ufw allow from 64.63.62.61 to any port 22
 '
 
-:'topic=docker
+: 'topic=docker
 common commands: [[[https://docs.docker.com/engine/reference/commandline/image_rm/]]]
 >> docker images
 >> docker image rm $docker-name
@@ -176,7 +176,7 @@ note: --runtime=nvidia in 225, nightly-gpu-py3
 #   >> kinit -R -k -t txia.keytab username@DC1.CORP.GD
 #   >> klist
 
-:'topic=git
+: 'topic=git
 ---git add a remote bare repository
 1. In the server, >> git init --bare
 2. In the client, >> git remote add TianXia git@sever-IP:/home/git/folder
@@ -291,7 +291,7 @@ support non-ascii file name
 # :ProjectSettings or (:EclimSettings)
 # org.eclim.java.run.jvmargs=[-ea]
 
-:'topic=tensorflow installation
+: 'topic=tensorflow installation
 https://www.tensorflow.org/install/install_linux#tensorflow_gpu_support
 0) nvidia GPU driver (version 410, OK for 418)
 1) CUDA Toolkit 10.0. for (tensorflow 1.10)
@@ -305,7 +305,7 @@ refer to [[https://www.tensorflow.org/install/gpu]]
 # sudo install_name_tool -add_rpath /usr/lib  /opt/local/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/torch/_C.cpython-36m-darwin.so
 # sudo install_name_tool -add_rpath /usr/lib  /opt/local/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/torch/_C.cpython-37m-darwin.so
 
-:'topic=GPU drive
+: 'topic=GPU drive
 stop xwindows: >> sudo service lightdm stop
 >> cat /proc/driver/nvidia/gpus/0000\:0f\:00.0/information
 >> lspci -vnn | grep -i VGA -A 12
@@ -369,7 +369,7 @@ install nvidia drive in specific kernel version
 # 2. run and generate gmon.out.
 # 3. gprof test > prof.text
 
-:'topic=pip
+: 'topic=pip
 ---list all installed packages in pip: pip freeze or pip list
 
 Install scipy, numpy from easy_install, pip.
@@ -516,7 +516,7 @@ uninstall all packages
 
 # In mac： 'otool -L data_ext.so', while in linux: 'ldd'
 
-:'topic=macport
+: 'topic=macport
  >> xcode-select --install
  
  [[http://guide.macports.org/#using.port]]
