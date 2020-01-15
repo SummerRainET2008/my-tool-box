@@ -40,27 +40,21 @@ class ParamBase(abc.ABC):
     self.vali_file = ""
     self.test_files = []
 
-    self.incremental_train = True
-
-    self.use_polynormial_decay = True
     self.train_sample_num = None
 
-    self.use_warmup = True
-    self.warmup_steps = None
+    self.incremental_train = True
+    self.use_polynormial_decay = True
+    self.warmup_ratio = 0.1
 
-  def set_batch_size(self):
+  # Have to invoke this function.
+  def update(self):
     self._batch_size = max(1, len(self.gpus)) * self.single_GPU_batch_size
     self._real_batch_size = self._batch_size * self.iter_num_update_optimizer
 
   def verify(self):
-    if self.use_warmup:
-      assert self.warmup_steps is not None
-    
-    if self.use_polynormial_decay:
-      assert self.train_sample_num is not None
-
-    assert self._batch_size is not None
-    assert self._real_batch_size is not None
+    assert self.train_sample_num is not None
+    assert self._batch_size is not None, "you have to call param.update()"
+    assert self._real_batch_size is not None, "you have to call param.update()"
     assert self.iter_num_update_optimizer is not None
 
     for file in self.train_files + self.test_files:

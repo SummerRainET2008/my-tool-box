@@ -61,25 +61,17 @@ class TrainerBase(abc.ABC):
     total_steps = math.ceil(
       param.train_sample_num * param.epoch_num / param._real_batch_size
     )
-    if param.use_warmup:
-      ratio = (self._global_step_id + 1) / param.warmup_steps
-      if ratio <= 1:
-        return ratio
-      
-      else:
-        if param.use_polynormial_decay:
-          ratio = 1 - (self._global_step_id - param.warmup_steps) / \
-                  (total_steps - param.warmup_steps)
-          return ratio
-        else:
-          return 1
-        
+    warmup_steps = max(1, math.ceil(param.warmup_ratio *  total_steps))
+    if  param.use_polynormial_decay:
+      decay_total_steps = total_steps
     else:
-      if param.use_polynormial_decay:
-        ratio = 1 - self._global_step_id / total_steps 
-        return ratio
-      else:
-        return 1
+      decay_total_steps = nlp.INF
+
+    ratio1 = (self._global_step_id + 1) / warmup_steps
+    ratio2 = 1 - (self._global_step_id + 1 - warmup_steps) / \
+             (decay_total_steps - warmup_steps)
+
+    return min(ratio1, ratio2)
 
   def load_model(self):
     param = self._param
