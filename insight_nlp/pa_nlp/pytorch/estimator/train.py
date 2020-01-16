@@ -122,6 +122,12 @@ class TrainerBase(abc.ABC):
       os.path.join(param.path_model, name)
     )
 
+    model_names = open(f"{param.path_model}/checkpoint").read().split()
+    for name in model_names[: -param.model_kept_num]:
+      model_file = f"{param.path_model}/{name}"
+      if os.path.isfile(model_file):
+        nlp.execute_cmd(f"rm {model_file}")
+
   def _try_to_save_best_model(self):
     if nlp.is_none_or_empty(self._param.vali_file):
       self.save_model()

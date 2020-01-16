@@ -46,6 +46,8 @@ class ParamBase(abc.ABC):
     self.use_polynormial_decay = True
     self.warmup_ratio = 0.1
 
+    self.model_kept_num = 3
+
   # Have to invoke this function.
   def update(self):
     self._batch_size = max(1, len(self.gpus)) * self.single_GPU_batch_size
