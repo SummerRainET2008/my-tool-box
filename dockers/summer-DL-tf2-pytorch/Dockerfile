@@ -21,6 +21,10 @@ RUN python3 -m pip install beautifulsoup4
 RUN python3 -m pip install html5lib 
 RUN python3 -m pip install httplib2 
 RUN python3 -m pip install jieba 
+RUN python3 -m pip install transformers 
+RUN python3 -m pip install torchvision 
+RUN python3 -m pip install rasterio
+RUN python3 -m pip install torch_lr_finder
  
 #Define the ENV variable
 #ENV nginx_vhost /etc/nginx/sites-available/default
