@@ -208,8 +208,10 @@ class TrainerBase(abc.ABC):
         batch_num, total_loss = 0, 0.
 
       if self._when_evaluate():
+        torch.cuda.empty_cache()
         self._model.eval()
         self._evaluate()
+        torch.cuda.empty_cache()
 
   def _when_evaluate(self):
     diff = self._run_sample_num - self._last_vali_sample_num
