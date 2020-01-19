@@ -59,7 +59,7 @@ class TrainerBase(abc.ABC):
     '''
     param = self._param
     total_steps = math.ceil(
-      param.train_sample_num * param.epoch_num / param._real_batch_size
+      param.train_sample_num * param.epoch_num / param._batch_size_per_opt
     )
     warmup_steps = max(1, math.ceil(param.warmup_ratio *  total_steps))
     if  param.use_polynormial_decay:
