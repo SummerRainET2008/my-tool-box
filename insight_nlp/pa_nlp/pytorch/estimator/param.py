@@ -29,11 +29,7 @@ class ParamBase(abc.ABC):
     self.epoch_num = 1
     self.gpus = []
     self.batch_size_one_gpu = 32
-    # This is considering multiple GPUs. Do NOT set this.
-    self._batch_size_all_gpus = None
-    # Do NOT set this.
-    self._batch_size_per_opt = None
-    self.batch_size_inference = None
+    self.batch_size_inference_one_gpu = 128
     self.iter_num_update_optimizer = 1
     self.eval_gap_instance_num = None
 
@@ -48,17 +44,24 @@ class ParamBase(abc.ABC):
     self.warmup_ratio = 0.1
 
     self.model_kept_num = 3
-
-  # Have to invoke this function.
-  def update(self):
-    self._batch_size_all_gpus = max(1, len(self.gpus)) * self.batch_size_one_gpu
-    self._batch_size_per_opt = self._batch_size_all_gpus * self.iter_num_update_optimizer
+    
+  def size_divided_by_16(self, size, unit=16):   
+    return math.ceil(size / unit) * unit
+    
+  def get_core_num(self):
+    return max(1, len(self.gpus))
+  
+  def get_batch_size_all_gpus(self):
+    return self.batch_size_one_gpu * self.get_core_num()
+  
+  def get_batch_size_per_optimization(self):
+    return self.get_batch_size_all_gpus() * self.iter_num_update_optimizer
+  
+  def get_batch_size_inference_all_gpus(self):
+    return self.batch_size_inference_one_gpu * self.get_core_num()
 
   def verify(self):
     assert self.train_sample_num is not None
-    assert self._batch_size_all_gpus is not None, "you have to call param.update()"
-    assert self._batch_size_per_opt is not None, "you have to call param.update()"
-    assert self.batch_size_inference is not None
     assert self.iter_num_update_optimizer is not None
     assert self.eval_gap_instance_num is not None
 
@@ -69,5 +72,18 @@ class ParamBase(abc.ABC):
     Logger.info("\n", "-" * 64)
     for key in sorted(self.__dict__):
       Logger.info(f"{key:20}: {self.__dict__[key]}")
+      
+    core_num = self.get_core_num()    
+    Logger.info(
+      f"batch_size[{core_num} GPUs]: {self.get_batch_size_all_gpus()}"
+    )
+    Logger.info(
+      f"batch_size[{core_num} GPUs, {self.iter_num_update_optimizer} "
+      f"gradient accumulations]: {self.get_batch_size_per_optimization()}"
+    )
+    Logger.info(
+      f"batch_size inference[{core_num} GPUs]: "
+      f"{self.get_batch_size_inference_all_gpus()}] "
+    )
     Logger.info("-" * 64, "\n")
     
