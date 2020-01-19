@@ -1,3 +1,11 @@
+: 'topic=screen
+>> screen -S session_name
+detach from a session >> Ctrl+a d     
+attach to a session >> screen -r session_id
+>> screen -ls
+kiss a sesson >> screen -XS session_id quit
+'
+
 : 'topic=network connection
 [[https://linuxize.com/post/how-to-setup-a-firewall-with-ufw-on-ubuntu-18-04/]]
 
