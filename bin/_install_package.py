@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import sys
+import platform
 from pa_nlp import nlp
 from pa_nlp.nlp import *
 
@@ -41,7 +42,7 @@ def run_apt(options, args):
   nlp.execute_cmd(cmd)
 
 def run_pip(options, args):
-  py = options.python
+  py = f"python{options.python}"
   assert py is not None
 
   if options.search is not None:
@@ -62,16 +63,23 @@ def run_pip(options, args):
   nlp.execute_cmd(cmd)
 
 def main():
+  if platform.system() == "Linux":
+    tool_default = "apt"
+    tool_cands = "[apt*, pip]"
+  else:
+    tool_default = "port"
+    tool_cands = "[port*, pip]"
+
   parser = OptionParser(usage = "cmd [optons] ")
   #parser.add_option("-q", "--quiet", action = "store_true", dest = "verbose", \
       #default = False, help = "don't print status messages to stdout")
-  parser.add_option("--tool", default="port", help="[port*, apt, pip]")
+  parser.add_option("--tool", default=tool_default, help=tool_cands)
   parser.add_option("--search", help="")
   parser.add_option("--install", help="")
   parser.add_option("--uninstall", help="")
   parser.add_option("--update", action="store_true", help="")
   parser.add_option("--upgrade", action="store_true", help="")
-  parser.add_option("--python", default="python3.7", help="default python3.7")
+  parser.add_option("--python", default="3.7", help="default python3.7")
   parser.add_option("--list_installed", action="store_true", help="")
   (options, args) = parser.parse_args()
 
