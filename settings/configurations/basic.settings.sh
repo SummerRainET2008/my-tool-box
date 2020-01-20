@@ -15,5 +15,7 @@ git config --global core.editor "vim"
 git config --global diff.tool vimdiff
 git config --global credential.helper cache; 
 git config --global credential.helper 'cache --timeout=86400'
+git config --global user.email "SummerRainET2008@gmail.com"
+git config --global user.name "Tian Xia"
 
 #git clone https://github.com/SummerRainET2008/my-tool-box.git
