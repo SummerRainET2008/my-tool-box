@@ -84,7 +84,7 @@ class TrainerBase(abc.ABC):
 
       model_name = open(check_point_file).readlines()[-1].strip()
       model_file = f"{param.path_model}/{model_name}"
-      checked_data = torch.load(model_file)
+      checked_data = torch.load(model_file, map_location=self._device)
 
       self._global_step_id = checked_data[0]
       self._opt_vali_error = checked_data[1]
