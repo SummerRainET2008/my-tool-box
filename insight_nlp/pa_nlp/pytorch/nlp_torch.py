@@ -6,6 +6,32 @@ from pa_nlp import nlp
 from pa_nlp.pytorch import *
 import torch
 
+def update_modules(module: nn.Module, module_block: typing.Any, name: str):
+  if isinstance(module_block, nn.Module):
+    module.add_module(name, module_block)
+
+  elif isinstance(module_block, list):
+    for idx, m in enumerate(module_block):
+      update_modules(module, m, f"{name}_{idx}")
+
+  elif isinstance(module_block, dict):
+    for key, m in module_block.items():
+      update_modules(module, m, f"{name}_{key}")
+
+  else:
+    assert False, type(module_block)
+
+def display_model_parameters(model: nn.Module):
+  print("-" * 32)
+  print(f"module parameters:")
+  total_num = 0
+  for name, var in model.named_parameters():
+    print(name, var.shape)
+    total_num += functools.reduce(operator.mul, var.shape, 1)
+  print()
+  print(f"#paramters: {total_num:_}")
+  print("-" * 32)
+
 class Swish(nn.Module):
   def __init__(self):
     super(Swish, self).__init__()
@@ -21,8 +47,12 @@ class Gelu(nn.Module):
     return x * 0.5 * (1.0 + torch.erf(x / math.sqrt(2.0)))
 
 class FFN(nn.Module):
-  def __init__(self, input_dim, hidden_dim, output_dim,
-               activation: nn.Module=Gelu(), dropout=0):
+  def __init__(self,
+               input_dim,
+               hidden_dim,
+               output_dim,
+               activation: nn.Module=Gelu(),
+               dropout=0):
     super(FFN, self).__init__()
     self._layer = nn.Sequential(
       torch.nn.Linear(input_dim, hidden_dim),
@@ -273,24 +303,37 @@ class VallinaDecoder(nn.Module):
 class TextCNN(nn.Module):
   def __init__(self,
                kernels: typing.List[int],
-               in_channel: int, out_channel: int,
-               max_seq: int, dim: int,
-               activation=nn.LeakyReLU()):
+               in_channel: int,
+               out_channel: int,
+               max_seq_len: int, dim: int,
+               activation=nn.LeakyReLU(),
+               dropout=0):
     super(TextCNN, self).__init__()
 
     self._cnns = [
       nn.Sequential(
         nn.Conv2d(in_channel, out_channel, (kernel, dim)),
         activation,
-        nn.MaxPool2d(max_seq - kernel + 1, 1)
+        nn.MaxPool2d((max_seq_len - kernel + 1, 1)),
       )
       for kernel in kernels
     ]
+    update_modules(self, self._cnns, "_cnns")
+    self._out_dropout = nn.Dropout(dropout)
     self._output_size = len(kernels) * out_channel
+
+    self._init_weights()
+
+  def _init_weights(self):
+    for name, w in self.named_parameters():
+      if "cnn" in name and "weight" in name:
+        nn.init.normal_(w, 0, 0.1)
+      elif "bias" in name:
+        nn.init.zeros_(w)
 
   def forward(self, x):
     '''
-    x: [batch, word_num, dim, channel]
+    x: [batch, channel, word_num, dim]
     '''
 
     outs = [cnn(x) for cnn in self._cnns]
@@ -298,6 +341,7 @@ class TextCNN(nn.Module):
     out = out.flatten(1, -1)
     assert out.shape[-1] == self._output_size, \
       f"{out.shape} != {self._output_size}"
+    out = self._out_dropout(out)
 
     return out
 
