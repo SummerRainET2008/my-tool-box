@@ -270,4 +270,34 @@ class VallinaDecoder(nn.Module):
 
     return output, hidden
 
+class TextCNN(nn.Module):
+  def __init__(self,
+               kernels: typing.List[int],
+               in_channel: int, out_channel: int,
+               max_seq: int, dim: int,
+               activation=nn.LeakyReLU()):
+    super(TextCNN, self).__init__()
+
+    self._cnns = [
+      nn.Sequential(
+        nn.Conv2d(in_channel, out_channel, (kernel, dim)),
+        activation,
+        nn.MaxPool2d(max_seq - kernel + 1, 1)
+      )
+      for kernel in kernels
+    ]
+    self._output_size = len(kernels) * out_channel
+
+  def forward(self, x):
+    '''
+    x: [batch, word_num, dim, channel]
+    '''
+
+    outs = [cnn(x) for cnn in self._cnns]
+    out = torch.cat(outs, -1)
+    out = out.flatten(1, -1)
+    assert out.shape[-1] == self._output_size, \
+      f"{out.shape} != {self._output_size}"
+
+    return out
 
