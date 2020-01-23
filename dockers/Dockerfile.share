@@ -1,4 +1,3 @@
-FROM tensorflow/tensorflow:nightly-gpu-py3
  
 # Update Software repository
 RUN apt-get update
@@ -29,6 +28,6 @@ RUN python3 -m pip install torch_lr_finder
 ENV PYTHONPATH /root/summer201/my-tool-box/insight_nlp:$PYTHONPATH 
 
 # write full path!
-COPY bashrc /root/.bashrc
-COPY local_bashrc /root/.local_bashrc
+COPY ../bashrc /root/.bashrc
+COPY ../local_bashrc /root/.local_bashrc
 
