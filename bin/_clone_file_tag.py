@@ -71,7 +71,7 @@ if __name__ == "__main__":
 
   assert options.cmd in ["gen", "apply", "analyze"]
 
-  tag_file = os.path.expanduser("~/.vim/settings/tags.dict")
+  tag_file = os.path.expanduser("~/my-tool-box/settings/tags.dict")
   os.chdir(os.path.expanduser("~/inf"))
 
   if options.cmd == "analyze":
