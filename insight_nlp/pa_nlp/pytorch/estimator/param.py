@@ -39,8 +39,8 @@ class ParamBase(abc.ABC):
 
     self.train_sample_num = None
 
-    self.incremental_train = True
-    self.use_polynormial_decay = True
+    self.incremental_train = False
+    self.use_polynormial_decay = False
     self.warmup_ratio = 0   # 0.1
 
     self.model_kept_num = 3
