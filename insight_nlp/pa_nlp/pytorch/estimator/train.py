@@ -14,9 +14,10 @@ class TrainerBase(abc.ABC):
       self._device = torch.device("cpu")
     else:
       self._device = torch.device(f"cuda:{gpu_ids[0]}")
-      model = nn.DataParallel(
-        model, device_ids=[f"cuda:{gid}" for gid in gpu_ids]
-      )
+
+    model = nn.DataParallel(
+      model, device_ids=[f"cuda:{gid}" for gid in gpu_ids]
+    )
     model = model.to(self._device)
 
     if not param.incremental_train:
