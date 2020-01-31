@@ -14,6 +14,7 @@ class TrainerBase(abc.ABC):
       self._device = torch.device("cpu")
     else:
       self._device = torch.device(f"cuda:{gpu_ids[0]}")
+      torch.cuda.set_device(gpu_ids[0])
 
     model = nn.DataParallel(
       model, device_ids=[f"cuda:{gid}" for gid in gpu_ids], dim=param.batch_dim,
