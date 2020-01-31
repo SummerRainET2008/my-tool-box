@@ -28,6 +28,7 @@ class ParamBase(abc.ABC):
     
     self.epoch_num = 1
     self.gpus = []
+    self.batch_dim = 0
     self.batch_size_one_gpu = 32
     self.batch_size_inference_one_gpu = 128
     self.iter_num_update_optimizer = 1
@@ -44,7 +45,7 @@ class ParamBase(abc.ABC):
     self.warmup_ratio = 0   # 0.1
 
     self.model_kept_num = 3
-    
+
   def size_divided_by_16(self, size, unit=16):   
     return math.ceil(size / unit) * unit
     
