@@ -1,11 +1,11 @@
-{'name': 'ubuntu', 'password': '', 'account': 'summer', 'ip': '192.168.1.70'}
-{'name': '200', 'password': 'common', 'account': 'summer', 'ip': '192.168.1.200'}
-{'name': '211', 'password': 'common', 'account': 'summer', 'ip': '192.168.1.211'}
-{'name': '201', 'password': 'common', 'account': 'summer', 'ip': '192.168.1.201'}
+{'name': '200', 'password': 'common', 'account': 'summer', 'ip': '192.168.1.200', 'memo': 'NLP group'}
+{'name': '201', 'password': 'common', 'account': 'summer', 'ip': '192.168.1.201', 'memo': 'NLP group'}
 {'name': '209', 'password': 'common', 'account': 'summer', 'ip': '192.168.1.209'}
 {'name': '210', 'password': 'common', 'account': 'summer', 'ip': '192.168.1.210', 'memo': 'for jupyter lab'}
-{'name': '224', 'password': 'common', 'account': 'summer', 'ip': '192.168.1.224', 'memo': 'borrowed to ASR'}
-{'name': '225', 'password': 'common', 'account': 'summer', 'ip': '192.168.1.225'}
-{'name': 'robot', 'password': '', 'account': 'ubuntu', 'ip': 'ec2-54-169-158-182.ap-southeast-1.compute.amazonaws.com'}
+{'name': '211', 'password': 'common', 'account': 'summer', 'ip': '192.168.1.211', 'memo': 'NLP group'}
+{'name': '224', 'password': 'common', 'account': 'summer', 'ip': '192.168.1.224', 'memo': 'ASR'}
+{'name': '225', 'password': 'common', 'account': 'summer', 'ip': '192.168.1.225', 'memo': 'NLP group'}
 {'name': '8gpu_chuwei', 'password': 'common', 'account': 'summer', 'ip': '209.172.89.182'}
 {'name': '8gpu_rtx8000_chuwei', 'password': 'common', 'account': 'summer', 'ip': '209.172.89.184'}
+{'name': 'robot', 'password': '', 'account': 'ubuntu', 'ip': 'ec2-54-169-158-182.ap-southeast-1.compute.amazonaws.com'}
+{'name': 'ubuntu', 'password': '', 'account': 'summer', 'ip': '192.168.1.70'}
