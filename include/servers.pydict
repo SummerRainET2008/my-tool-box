@@ -1,4 +1,6 @@
 {'name': 'ubuntu', 'password': '', 'account': 'summer', 'ip': '192.168.1.70'}
+{'name': '200', 'password': 'common', 'account': 'summer', 'ip': '192.168.1.200'}
+{'name': '211', 'password': 'common', 'account': 'summer', 'ip': '192.168.1.211'}
 {'name': '201', 'password': 'common', 'account': 'summer', 'ip': '192.168.1.201'}
 {'name': '209', 'password': 'common', 'account': 'summer', 'ip': '192.168.1.209'}
 {'name': '210', 'password': 'common', 'account': 'summer', 'ip': '192.168.1.210', 'memo': 'for jupyter lab'}
