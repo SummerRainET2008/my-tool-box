@@ -25,6 +25,7 @@ RUN python3 -m pip install transformers
 RUN python3 -m pip install torchvision 
 RUN python3 -m pip install rasterio
 RUN python3 -m pip install torch_lr_finder
+RUN python3 -m pip install torchcrf 
  
 ENV PYTHONPATH /root/summer201/my-tool-box/insight_nlp:$PYTHONPATH 
 
