@@ -2,6 +2,7 @@ export TOOL_PATH=~/my-tool-box
 
 sudo apt install git
 sudo apt install vim
+sudo apt install ssh
 sudo apt install python3-pip
 sudo python3 -m pip install numpy
 
