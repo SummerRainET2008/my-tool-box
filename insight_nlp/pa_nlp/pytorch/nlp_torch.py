@@ -21,6 +21,20 @@ def update_modules(module: nn.Module, module_block: typing.Any, name: str):
   else:
     assert False, type(module_block)
 
+def sequence_mask(real_len: torch.Tensor,
+                  max_size: typing.Union[int, None]=None):
+  '''
+  real_len: [batch]
+  return: [batch, max_size]
+  '''
+  if max_size is None:
+    max_size = real_len.max()
+
+  size = torch.LongTensor(range(1, max_size + 1))
+  mask = real_len.unsqueeze(1) >= size.unsqueeze(0)
+
+  return mask
+
 def display_model_parameters(model: nn.Module):
   print("-" * 32)
   print(f"module parameters:")
