@@ -30,8 +30,7 @@ def sequence_mask(real_len: torch.Tensor,
   if max_size is None:
     max_size = real_len.max()
 
-  size = torch.LongTensor(range(1, max_size + 1))
-  size = size.to(real_len.device, dtype=real_len.dtype)
+  size = torch.LongTensor(range(1, max_size + 1)).to(real_len)
   mask = real_len.unsqueeze(1) >= size.unsqueeze(0)
 
   return mask
