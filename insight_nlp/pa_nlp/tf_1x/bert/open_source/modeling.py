@@ -816,7 +816,7 @@ def transformer_model(input_tensor,
     raise ValueError("The width of the input tensor (%d) != hidden size (%d)" %
                      (input_width, hidden_size))
 
-  # We keep.tag the representation as a 2D tensor to avoid re-shaping it back and
+  # We keep the representation as a 2D tensor to avoid re-shaping it back and
   # forth from a 3D tensor to a 2D tensor. Re-shapes are normally free on
   # the GPU/CPU but may not be free on the TPU, so we want to minimize them to
   # help the optimizer.
