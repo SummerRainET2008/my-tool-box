@@ -1,6 +1,7 @@
 {'name': '157', 'password': 'common', 'account': 'summer', 'ip': '192.168.0.157', 'memo': '2-card RTX8000, chaoping'}
 {'name': '200', 'password': 'common', 'account': 'summer', 'ip': '192.168.1.200', 'memo': 'NLP group'}
 {'name': '201', 'password': 'common', 'account': 'summer', 'ip': '192.168.1.201', 'memo': 'NLP group'}
+{'name': '208', 'password': 'common', 'account': 'summer', 'ip': '192.168.1.208', 'memo': 'NLP group'}
 {'name': '209', 'password': 'common', 'account': 'summer', 'ip': '192.168.1.209'}
 {'name': '210', 'password': 'common', 'account': 'summer', 'ip': '192.168.1.210', 'memo': 'for jupyter lab'}
 {'name': '211', 'password': 'common', 'account': 'summer', 'ip': '192.168.1.211', 'memo': 'NLP group'}
