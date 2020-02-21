@@ -1,4 +1,4 @@
-from examples.pylab import *
+from coding_examples.pylab import *
 
 if __name__ == "__main__":
   data1 = [1, 2, 3, 4]
