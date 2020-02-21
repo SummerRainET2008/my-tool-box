@@ -2,7 +2,7 @@
 #coding: utf8
 #author: Tian Xia (SummerRainET2008@gmail.com)
 
-from examples.pylab import *
+from coding_examples.pylab import *
 
 if __name__ == "__main__":
   #sometimes it is required.
