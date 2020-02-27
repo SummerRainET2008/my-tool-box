@@ -21,7 +21,6 @@ RUN python3 -m pip install nltk
 RUN python3 -m pip install nvidia-ml-py3 
 RUN python3 -m pip install params_flow
 RUN python3 -m pip install pillow
-RUN python3 -m pip install pylab
 RUN python3 -m pip install pytorch-crf
 RUN python3 -m pip install rasterio
 RUN python3 -m pip install scipy
