@@ -33,9 +33,9 @@ def get_files_or_folders(dir_only: bool, file_only: bool, file_types: set,
         yield f
 
 def include_keywords(f: str, keywords: list):
-  f_lower = f.lower()
+  f = f.split("/")[-1].lower()
   for kw in keywords:
-    if kw not in f_lower:
+    if kw not in f:
       return False
 
   return True

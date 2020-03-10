@@ -147,11 +147,11 @@ note: --runtime=nvidia in 225, nightly-gpu-py3
 # menu: preferences -- general -- preferences: load... and save...
 # default folder: ~/vim/settings
 
-# lyx for Chinese 
-# Default support Chinese, so no need to install extra packages.
-# menu: Document - settings - Fonts - use non-teX fonts - use all SimSun, or songti
-# You may need to change "document class" to CText.
-
+: 'topic= lyx for Chinese 
+Default support Chinese, so no need to install extra packages.
+menu: Document - settings - Fonts - use non-teX fonts - use all SimSun, or songti
+You may need to change "document class" to CText.
+'
 # Read hive database using spark 
 # In the terminal: hive:
 # >> show databases;
