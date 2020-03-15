@@ -9,10 +9,11 @@ or
 '
 
 : 'topic=screen
->> screen -S session_name
+create a new session >> screen -S session_name
 detach from a session >> Ctrl+a d     
 attach to a session >> screen -r session_id
->> screen -ls
+attach to a session again >> screen -r -d session_id 
+display all sessions >> screen -ls
 kiss a sesson >> screen -XS session_id quit
 '
 
