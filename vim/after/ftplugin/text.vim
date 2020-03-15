@@ -75,10 +75,27 @@ while line_ID < len(buff):
 endpython
 endfunction
 
+function! SetTitle()
+
+let line_id = getpos(".")[1] - 1
+
+python << endpython
+import vim, re
+
+line_id = int(vim.eval("line_id"))
+line = vim.current.buffer[line_id] 
+max_len = 80
+blank_num = max_len - (len(line) + 2)
+title_line = "-" *  (blank_num/ 2) + " " + line + " " +  "-" * (blank_num - blank_num / 2)
+vim.current.buffer[line_id] = title_line
+
+endpython
+endfunction  
+
 set foldmethod=manual
 set tw=0
 set wrap
-map --- O--------------------------------------------------------------------<Esc>
+map --- :call SetTitle()<CR> 
 
 syn match Define          "^---.*"
 syn match Define          ".*---$"
