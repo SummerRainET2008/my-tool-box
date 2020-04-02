@@ -150,8 +150,8 @@ note: --runtime=nvidia in 225, nightly-gpu-py3
 
 : 'topic= lyx for Chinese 
 Default support Chinese, so no need to install extra packages.
-menu: Document - settings - Fonts - use non-teX fonts - use all SimSun, or songti
-You may need to change "document class" to CText.
+1. change "document class" to CText.
+2. Document - settings - Fonts - use non-teX fonts - use all SimSun, or songti
 '
 # Read hive database using spark 
 # In the terminal: hive:

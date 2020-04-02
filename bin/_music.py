@@ -1,11 +1,10 @@
 #!/usr/bin/env python3
 
-from pa_nlp import common as nlp
+from pa_nlp import nlp
 from os import system
 from optparse import OptionParser
 from random import sample
 from threading import Thread
-
 
 class PlayThread:
   def __init__(self, play_cmd):
@@ -16,7 +15,7 @@ class PlayThread:
 
 class Sound:
   home = nlp.get_home_dir()
-  SOUND_DIR = f"{nlp.get_home_dir()}/.vim/bin/music"
+  SOUND_DIR = f"{nlp.get_home_dir()}/my-tool-box/bin/music"
   SID = 0
   SOUND_TABLE = []
 
