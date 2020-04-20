@@ -26,9 +26,8 @@ RUN python3 -m pip install rasterio
 RUN python3 -m pip install scipy
 RUN python3 -m pip install search-google
 RUN python3 -m pip install sklearn
-RUN python3 -m pip install tensorflow
+#RUN python3 -m pip install tensorflow
 RUN python3 -m pip install torch
-RUN python3 -m pip install torch 
 RUN python3 -m pip install torch_lr_finder
 RUN python3 -m pip install torchvision
 RUN python3 -m pip install transformers
