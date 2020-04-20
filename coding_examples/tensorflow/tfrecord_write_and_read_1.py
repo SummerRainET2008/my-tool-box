@@ -2,11 +2,6 @@
 #coding: utf8
 #author: Tian Xia (SummerRainET2008@gmail.com)
 
-from pa_nlp import common as nlp
-import os
-from pa_nlp.audio.acoustic_feature_tf import DataGraphMFCC
-from pa_nlp.audio.audio_helper import AudioHelper
-from collections import defaultdict
 import tensorflow as tf
 
 import numpy as np
