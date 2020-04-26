@@ -14,6 +14,10 @@ if __name__ == "__main__":
     showServers()
     exit(0)
 
+  if args == ["lab"]:
+    nlp.execute_cmd("ssh -p 39002 summer@ml.pingan-labs.us")
+    exit(0)
+
   loginServer = args[0] 
   if "@" not in loginServer:
     servers = loadServerConfig()
