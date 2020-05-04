@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 #coding: utf8
 
-from server_manager import *
+from include.server_manager import *
 from pa_nlp import nlp
 import optparse
 

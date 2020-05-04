@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 #coding: utf8
 
-from _scp import *
+from bin._scp import *
 from pa_nlp import nlp
 
 if __name__ == "__main__":
