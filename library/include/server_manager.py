@@ -10,10 +10,15 @@ class ServerManager:
   def __init__(self):
     self._servers = {}
     home = nlp.get_home_dir()
-    servers = nlp.pydict_file_read(f"{home}/my-tool-box/include/servers.pydict")
+    servers = nlp.pydict_file_read(f"{home}/my-tool-box/"
+                                   f"library/data/servers.pydict")
     for server in servers:
       self._servers[server["name"]] = server
       print(server)
+
+  def get_port(self, server_name):
+    server = self._servers[server_name]
+    return server.get("port", "")
 
   def get_ip(self, serverName):
     if serverName == "localhost":
@@ -26,13 +31,6 @@ class ServerManager:
 
     server = self._servers[serverName]
     return "%s@%s" %(server["account"], server["ip"])
-
-  def get_server_name(self):
-    return list(self._servers.keys())
-
-  def show_all_servers(self):
-    for p, name in enumerate(sorted(self._servers.keys())):
-      print(p, self._servers[name])
 
   @staticmethod
   def get_instance():
@@ -48,4 +46,3 @@ if __name__ == "__main__":
   (options, args) = parser.parse_args()
 
   serverManager = ServerManager.get_instance()
-  serverManager.show_all_servers()

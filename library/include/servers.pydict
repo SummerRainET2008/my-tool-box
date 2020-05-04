@@ -1,8 +1,0 @@
-{'name': '200', 'password': 'common', 'account': 'summer', 'ip': '192.168.1.200', 'memo': 'NLP group'}
-{'name': '201', 'password': 'common', 'account': 'summer', 'ip': '192.168.1.201', 'memo': 'NLP group'}
-{'name': '208', 'password': 'common', 'account': 'summer', 'ip': '192.168.1.208', 'memo': 'NLP group'}
-{'name': '211', 'password': 'common', 'account': 'summer', 'ip': '192.168.1.211', 'memo': 'NLP group'}
-{'name': '225', 'password': 'common', 'account': 'summer', 'ip': '192.168.1.225', 'memo': 'NLP group'}
-{'name': '228', 'password': 'common', 'account': 'summer', 'ip': '192.168.1.228', 'memo': 'NLP group'}
-{'name': 'robot', 'password': '', 'account': 'ubuntu', 'ip': 'ec2-54-169-158-182.ap-southeast-1.compute.amazonaws.com'}
-{'name': 'ubuntu', 'password': '', 'account': 'summer', 'ip': '192.168.1.143'}

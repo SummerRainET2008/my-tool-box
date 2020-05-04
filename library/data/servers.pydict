@@ -1,0 +1,9 @@
+{'name': '200', 'password': 'common', 'account': 'summer', 'ip': '192.168.1.200', 'port': '', 'memo': 'NLP group'}
+{'name': '201', 'password': 'common', 'account': 'summer', 'ip': '192.168.1.201', 'port': '', 'memo': 'NLP group'}
+{'name': '208', 'password': 'common', 'account': 'summer', 'ip': '192.168.1.208', 'port': '', 'memo': 'NLP group'}
+{'name': 'lab', 'password': 'common', 'account': 'summer', 'ip': 'ml.pingan-labs.us', 'port': '39002', 'memo': 'NLP group, from outside access'}
+{'name': '211', 'password': 'common', 'account': 'summer', 'ip': '192.168.1.211', 'port': '', 'memo': 'NLP group'}
+{'name': '225', 'password': 'common', 'account': 'summer', 'ip': '192.168.1.225', 'port': '', 'memo': 'NLP group'}
+{'name': '228', 'password': 'common', 'account': 'summer', 'ip': '192.168.1.228', 'port': '', 'memo': 'NLP group'}
+{'name': 'robot', 'password': '', 'account': 'ubuntu', 'ip': 'ec2-54-169-158-182.ap-southeast-1.compute.amazonaws.com', 'port': ''}
+{'name': 'ubuntu', 'password': '', 'account': 'summer', 'ip': '192.168.1.143', 'port': ''}

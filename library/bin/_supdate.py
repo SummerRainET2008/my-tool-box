@@ -21,8 +21,8 @@ if __name__ == "__main__":
   else:   
     excludeOpt = "" 
  
-  srcDir = _scp.replaceServer(args[0]) + "/"
-  tgtDir = _scp.replaceServer(args[1]) + "/"
+  srcDir = _scp.replace_server(args[0]) + "/"
+  tgtDir = _scp.replace_server(args[1]) + "/"
   
   cmd = f"rsync -ravutzhlog --progress -e ssh " \
         f"{srcDir} {tgtDir}  {excludeOpt} {deleteOpt}"
