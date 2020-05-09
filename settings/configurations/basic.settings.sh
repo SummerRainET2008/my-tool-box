@@ -5,6 +5,7 @@ sudo apt install vim
 sudo apt install ssh
 sudo apt install python3-pip
 sudo python3 -m pip install numpy
+sudo python3 -m pip install scipy 
 
 mv ~/.bashrc ~/.bashrc.bak
 ln -s $TOOL_PATH/settings/bashrc ~/.bashrc
