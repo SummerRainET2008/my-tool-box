@@ -4,5 +4,6 @@ export PS1='v1(unknown)@\W\$ '
 alias less='less --RAW-CONTROL-CHARS'
 export LS_OPTS='--color=auto'
 alias ls='ls ${LS_OPTS}'
+alias _mount_201='sudo sshfs summer@192.168.1.201:/media/workspace/summer /home/summer/summer201 -o idmap=user -o allow_other'
 
 # mkdir ~/summer201; sudo sshfs summer@192.168.1.201:/media/workspace/summer ~/summer201 -o idmap=user -o allow_other
