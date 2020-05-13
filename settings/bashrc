@@ -1,3 +1,9 @@
+: 'find out who is logged on, and when was rebooted 
+# >> who -a
+# >> last | grep -i reboot 
+# >> sudo vim /var/log/syslog
+'
+
 : 'topic=ip and port
 >> sudo lsof -i -P -n | grep LISTEN 
 or 
