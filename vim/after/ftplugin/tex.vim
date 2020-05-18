@@ -122,7 +122,7 @@ inoremap ]   <C-R>=SuperEndMatch("]")<CR>
 let g:tex_conceal=""
 
 map <C-b>         :call CompileLatex(1)<CR>
-map <S-b>         :call CompileLatex(0)<CR>
+map <C-B>         :call CompileLatex(0)<CR>
 
 inoremap <F5>     <C-R>=InsertLatexLabel()<CR>
 map <F6>          :call GenLatexTags()<CR>

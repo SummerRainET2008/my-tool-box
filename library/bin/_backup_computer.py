@@ -26,7 +26,7 @@ if __name__ == "__main__":
     target_path = "/Volumes/warehouse/inf"
     assert os.path.isdir(target_path)
   elif options.driver == "server":
-    target_path = "225@/raid/summer/mac-backup"
+    target_path = "225@/home/summer/summer/backup.mac"
   else:
     assert False
 
