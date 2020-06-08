@@ -121,8 +121,9 @@ inoremap ]   <C-R>=SuperEndMatch("]")<CR>
 " Does not convert any math symbols in latex.
 let g:tex_conceal=""
 
+" note, <C-b> = <C-B>; however, b != B generally.
 map <C-b>         :call CompileLatex(1)<CR>
-map <C-B>         :call CompileLatex(0)<CR>
+map <S-b>         :call CompileLatex(0)<CR>
 
 inoremap <F5>     <C-R>=InsertLatexLabel()<CR>
 map <F6>          :call GenLatexTags()<CR>
