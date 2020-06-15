@@ -1,4 +1,12 @@
 """"""""""""""""""""""function definition""""""""""""""""""""""""""""""""""""""
+function! SearchWord(word)
+  let pos=search(a:word)
+  if pos == 0
+    exec "!open dict://" . a:word 
+  endif    
+
+endfunction
+
 function! LoadWord(phrase)
 python << endpython
 import vim
