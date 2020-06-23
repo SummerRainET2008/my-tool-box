@@ -76,7 +76,7 @@ endif
 
 let b:current_syntax = "english"
 scriptencoding utf-8
-set textwidth=100
+set textwidth=80
 
 " refere to syntax.txt:260
 syn case ignore

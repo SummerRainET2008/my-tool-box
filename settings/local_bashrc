@@ -7,3 +7,9 @@ alias ls='ls ${LS_OPTS}'
 alias _mount_201='sudo sshfs summer@192.168.1.201:/media/workspace/summer /home/summer/summer201 -o idmap=user -o allow_other'
 
 # mkdir ~/summer201; sudo sshfs summer@192.168.1.201:/media/workspace/summer ~/summer201 -o idmap=user -o allow_other
+
+stty stop undef
+stty -ixon > /dev/null 2>/dev/null
+
+echo "Hello Tian Xia"
+
