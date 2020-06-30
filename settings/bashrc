@@ -1,3 +1,8 @@
+: 'disable ubuntu update
+>> sudo vim /etc/apt/apt.conf.d/20auto-upgrades
+>> APT::Periodic::Update-Package-Lists "0";
+'
+
 : 'server 201  can not ping www.google.com
 1. change nameserver in /etc/resolv.conf to 8.8.8.8 
 2. sudo service networking restart
