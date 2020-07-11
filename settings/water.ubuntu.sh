@@ -171,3 +171,6 @@
 
 # 安装lz = libz
    sudo apt-get install libz-dev
+
+# movie maker
+   sudo apt install openshot-qt
