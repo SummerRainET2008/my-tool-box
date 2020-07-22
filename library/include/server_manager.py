@@ -12,7 +12,7 @@ class ServerManager:
     home = nlp.get_home_dir()
     servers = nlp.pydict_file_read(f"{home}/my_tool_box/"
                                    f"library/data/servers.pydict")
-    for server in servers:
+    for server in sorted(servers, key=lambda s: s["name"]):
       self._servers[server["name"]] = server
       print(server)
 

@@ -492,6 +492,7 @@ uninstall all packages
 # sed
 # cmd = '''sed 's/\(WEIGHTS.*\[\).*\(\]\)/\\1%s\\2/g' ../config.py > tmp && mv tmp ../config.py''' %weights
 
+# ubuntu disk operations
 # >> df -lh
 # >> sudo fdisk -l
 
