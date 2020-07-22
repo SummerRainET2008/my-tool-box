@@ -453,7 +453,7 @@ map <C-up>          [{
 map <C-down>        ]}
 
 " reopen the current file.
-map <F2>            :e%<CR>
+map <F2>            :e%<CR>:syn on<CR>
 
 map <F3>            :A <CR>
 

@@ -1,4 +1,21 @@
 """"""""""""""""""""""function definition""""""""""""""""""""""""""""""""""""""
+function! MatchNoneAsciiChars()
+python << endpython
+import vim, re
+
+buff = vim.current.buffer
+content = "\n".join(buff)
+none_ascii_set = set(
+  ch for ch in content.decode("utf8") if not ord(ch) < 128
+)
+#print("non_ascii_set.size: ", len(none_ascii_set), [e.encode("utf8") for e in none_ascii_set])
+vim.command(":syn off")
+for e in none_ascii_set:
+  vim.command(":syn match underlined '%s'" %e)
+
+endpython
+endfunction
+
 function! GenLatexTags()
 python << endpython
 import vim, re
@@ -127,3 +144,5 @@ map <S-b>         :call CompileLatex(0)<CR>
 
 inoremap <F5>     <C-R>=InsertLatexLabel()<CR>
 map <F6>          :call GenLatexTags()<CR>
+
+map <F7>          :call MatchNoneAsciiChars()<CR>
