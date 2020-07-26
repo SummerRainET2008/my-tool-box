@@ -15,7 +15,7 @@ phrase = vim.eval("a:phrase").split()
 phrase = ["\<%s" %w for w in phrase]
 reg = "\_s\+".join(phrase)
 if reg != "":
-  vim.command('''syn match Tag "%s"''' %reg)
+  vim.command('''syn match Type "%s"''' %reg)
 
 endpython
 endfunction
@@ -81,8 +81,8 @@ set textwidth=80
 " refere to syntax.txt:260
 syn case ignore
 
-syn match Type        "sent:"
-syn match String      "dict:"
+syn match Tag         "sent:"
+syn match Tag         "dict:"
 
 syn match Constant "\<adj\."
 syn match Constant "\<adv\."
