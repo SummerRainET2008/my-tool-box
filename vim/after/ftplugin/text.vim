@@ -93,7 +93,7 @@ endpython
 endfunction  
 
 set foldmethod=manual
-set tw=0
+set tw=80
 set wrap
 map --- :call SetTitle()<CR> 
 

@@ -258,6 +258,9 @@ support non-ascii file name
 #                
 # sudo add-apt-repository ppa:whatever/ppa
 # sudo add-apt-repository --remove ppa:whatever/ppa
+#
+# deal with unmet dependencies
+# sudo apt-get --purge remove all-packages-unmet
 
 # Config aws
 # 1) ping: ICMP   Echo Request
@@ -341,6 +344,8 @@ refer to [[https://www.tensorflow.org/install/gpu]]
 # sudo install_name_tool -add_rpath /usr/lib  /opt/local/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/torch/_C.cpython-37m-darwin.so
 
 : 'topic=GPU drive
+>> sudo apt install nvidia-driver-440
+
 stop xwindows: >> sudo service lightdm stop
 >> cat /proc/driver/nvidia/gpus/0000\:0f\:00.0/information
 >> lspci -vnn | grep -i VGA -A 12
