@@ -64,7 +64,7 @@ common commands: [[[https://docs.docker.com/engine/reference/commandline/image_r
 >> sudo apt-get update && sudo apt-get install -y nvidia-container-toolkit
 >> sudo systemctl restart docker
 
->> _install_package.py --tool apt --install "nvidia-container-runtime nvidia-container-toolkit"
+>> _install_package.py --tool apt --install "nvidia-container-toolkit"
 >> docker run --gpus all --rm nvidia/cuda nvidia-smi
 
 >> docker pull tensorflow/tensorflow:latest-gpu-py3
@@ -261,6 +261,11 @@ support non-ascii file name
 #
 # deal with unmet dependencies
 # sudo apt-get --purge remove all-packages-unmet
+# 
+# install special version:
+# >> apt-cache madison {package-name}
+# >> export version=5:19.03.12~3-0~ubuntu-bionic;
+# >> sudo apt-get install docker-ce=$version docker-ce-cli=$version containerd.io
 
 # Config aws
 # 1) ping: ICMP   Echo Request
