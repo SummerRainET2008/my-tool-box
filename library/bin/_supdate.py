@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 #coding: utf8
 
+from library.bin import _scp
 from pa_nlp import nlp
 import optparse
-import _scp
 
 if __name__ == "__main__":
   parser = optparse.OptionParser(usage = "cmd srcDir targetDir")
@@ -19,12 +19,21 @@ if __name__ == "__main__":
   if options.excludePattern is not None:
     excludeOpt = f"--exclude={options.excludePattern}"
   else:   
-    excludeOpt = "" 
- 
-  srcDir = _scp.replace_server(args[0]) + "/"
-  tgtDir = _scp.replace_server(args[1]) + "/"
-  
-  cmd = f"rsync -ravutzhlog --progress -e ssh " \
-        f"{srcDir} {tgtDir}  {excludeOpt} {deleteOpt}"
-  print(cmd)
+    excludeOpt = ""
+
+  srcDir, port1 = _scp.replace_server(args[0])
+  tgtDir, port2 = _scp.replace_server(args[1])
+  srcDir += "/"
+  tgtDir += "/"
+
+  if not nlp.is_none_or_empty(port1):
+    port_opt = f"--port={port1}"
+  elif not nlp.is_none_or_empty(port2):
+    port_opt = f"--port={port2}"
+  else:
+    port_opt = ""
+
+  cmd = f"rsync -ravutzhlog --progress -e ssh {port_opt} " \
+        f"{srcDir} {tgtDir} {excludeOpt} {deleteOpt}"
   nlp.execute_cmd(cmd)
+
