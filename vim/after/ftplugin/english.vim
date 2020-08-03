@@ -1,4 +1,18 @@
 """"""""""""""""""""""function definition""""""""""""""""""""""""""""""""""""""
+function! FindNextLearningSection()
+python << endpython
+import vim, re
+
+reg = re.compile(r"\[unit\s+\d+\s+(\w+)\]")
+buff = vim.current.buffer
+results = sorted(set(reg.findall("\n".join(buff))))
+#print(results[: 5])
+vim.command("normal gg ") 
+vim.command("/[unit.* %s\]" %results[0])
+
+endpython
+endfunction
+
 function! SearchWord(word)
   let pos=search(a:word)
   if pos == 0
@@ -109,3 +123,5 @@ map <silent><C-d>  :execute "!say " . expand("<cword>") <CR><CR>
 
 call LoadAllWords()
 call ConcelLink()
+
+command! FindNextLearningSection execute ': call FindNextLearningSection()'
