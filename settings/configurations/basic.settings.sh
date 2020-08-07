@@ -1,4 +1,4 @@
-export TOOL_PATH=~/my-tool-box
+export TOOL_PATH=~/my_tool_box
 
 sudo apt install git
 sudo apt install vim

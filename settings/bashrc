@@ -1,4 +1,4 @@
-" 'topic=cp in mac and ubuntu
+: 'topic=cp in mac and ubuntu
 in mac: cp -Rv folder1 folder2: would copy the link itself.
 in mac: cp -rv folder1 folder2: would copy the content of link.
 in ubuntu: no difference.
