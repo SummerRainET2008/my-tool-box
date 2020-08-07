@@ -96,7 +96,7 @@ set textwidth=80
 syn case ignore
 
 syn match Tag         "sent:"
-syn match Tag         "dict:"
+syn match String      "dict:"
 
 syn match Constant "\<adj\."
 syn match Constant "\<adv\."
