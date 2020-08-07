@@ -1,3 +1,5 @@
+# >> while :; do clear; your_command; sleep 2; done
+
 : 'disable ubuntu update
 >> sudo vim /etc/apt/apt.conf.d/20auto-upgrades
 >> APT::Periodic::Update-Package-Lists "0";
