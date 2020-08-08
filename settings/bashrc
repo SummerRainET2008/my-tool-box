@@ -674,8 +674,8 @@ alias _jupyter_convert='jupyter-3.6 nbconvert --to script'
 export PATH=/opt/local/bin:$PATH
 export PATH=/opt/local/sbin:$PATH
 export PATH=/opt/rh/devtoolset-3/root/usr/bin:$PATH
-export PATH=~/my_tool_box/library/bin:$PATH
-export PATH=~/my_tool_box/insight_nlp/bin:$PATH
+export PATH=~/alias/my_tool_box/library/bin:$PATH
+export PATH=~/alias/my_tool_box/insight_nlp/bin:$PATH
 
 export CPLUS_INCLUDE_PATH=~/.vim/include:$CPLUS_INCLUDE_PATH
 export CPLUS_INCLUDE_PATH=/opt/local/include:$CPLUS_INCLUDE_PATH
@@ -693,8 +693,8 @@ export DYLD_FALLBACK_LIBRARY_PATH=/opt/local/Library/Frameworks/Python.framework
 export DYLD_FALLBACK_LIBRARY_PATH=~/installed/boost/stage/lib:$DYLD_FALLBACK_LIBRARY_PATH
 export DYLD_FALLBACK_LIBRARY_PATH=/opt/local/lib:$DYLD_FALLBACK_LIBRARY_PATH
 
-export PYTHONPATH=~/my_tool_box/:$PYTHONPATH
-export PYTHONPATH=~/my_tool_box/insight_nlp:$PYTHONPATH
+export PYTHONPATH=~/alias/my_tool_box/:$PYTHONPATH
+export PYTHONPATH=~/alias/nlp_team:$PYTHONPATH
 
 export CLASSPATH=~/.m2/repository/org/scala-lang/scala-library/2.11.7/scala-library-2.11.7.jar:$CLASSPATH
 export CLASSPATH=/opt/local/share/java/jline.jar:$CLASSPATH
