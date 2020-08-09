@@ -86,7 +86,10 @@ note: --runtime=nvidia in 225, nightly-gpu-py3
   tensorflow/tensorflow:nightly-gpu-py3 bash 
 '
 
-# topic=hotkey in Mac
+: 'topic=hotkey in Mac
+>> lookup word in the default dict: ctrl + cmd + d
+>> pronounce a word in the default dict: option + s
+'
 
 # colorful temrinal for ubuntu
 # alias less='less --RAW-CONTROL-CHARS'
