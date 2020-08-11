@@ -267,8 +267,17 @@ if tw == 0:
 elif not is_english(words):
   print("not english text.")
 else:  
+  indent_type = None
+  if words.startswith("sent: "):
+    indent_type = "sent"
+    indent = 6
+    words = words[6:]
+
   new_lines = full_justify(words.split(), tw - indent)
   new_lines = [" " * indent + line for line in new_lines]
+  if indent_type == "sent":
+    new_lines[0] = "sent: " + new_lines[0][6:]
+
   vim.current.buffer[start: end + 1] = new_lines
 
 endpython

@@ -110,7 +110,7 @@ syn match Constant "\<conj\."
 syn match Constant "/\_.\{-}/"
 syn match Constant "\[\_.\{-}\]"
 
-map <leader>s   <Esc>Isent: <Esc>gqq
+map <leader>s   <Esc>Isent: <Esc>:'<,'> call TextJustification()<CR>
 map <leader>d   <Esc>Idict: <Esc>gqq
 
 map +           :call ExpandandEmphrasize()<Esc>
