@@ -391,11 +391,11 @@ function! MatchLongLines()
 
   if b:long_lines_matched == 0
     echo "match long lines"
-    :match OverLength /\%81v.\+/
+    :set colorcolumn=81
     let b:long_lines_matched = 1
   elseif b:long_lines_matched == 1
     echo "close match long lines"
-    :match OverLength /\%1000000081v.\+/
+    :set colorcolumn=0
     let b:long_lines_matched = 0
   endif
 
