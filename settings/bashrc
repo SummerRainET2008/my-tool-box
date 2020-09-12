@@ -726,7 +726,7 @@ export PS1='mac@\W\$ '
 # for spark Python.
 export PYSPARK_PYTHON=/usr/bin/python27-virtual-hadoop
 
-alias _docker_image_dl_docker_version_19='sudo docker run --gpus all       -it --rm -v ~/summer201:/root/summer201  -w /root/summer201 summer-dl-tf2-pytorch bash'
+alias _docker_image_dl_docker_version_19='sudo docker run --gpus all  --shm-size 50G -it --rm -v ~/summer201:/root/summer201  -w /root/summer201 summer-dl-tf2-pytorch bash'
 alias _docker_image_dl_docker_version_18='sudo docker run --runtime=nvidia -it --rm -v ~/summer201:/root/summer201  -w /root/summer201 summer-dl-tf2-pytorch bash'
 
 source ~/.local_bashrc
