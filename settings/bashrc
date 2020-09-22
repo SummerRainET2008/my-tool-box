@@ -1,3 +1,6 @@
+# sudo timedatectl list-timezones
+# sudo timedatectl set-timezone America/Los_Angeles
+
 # esc button is missing >> sudo pkill TouchBarServer
 
 
@@ -440,6 +443,9 @@ or
 >> {python-version} get-pip.py
 
 >> {python-version} -m pip install scipy, numpy [--upgrade]
+
+install locally
+>> python-version -m pip install package --user summer
 
 install pip
 >> sudo apt-get install python-pip
