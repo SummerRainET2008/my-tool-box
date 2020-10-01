@@ -1,8 +1,7 @@
 # sudo timedatectl list-timezones
 # sudo timedatectl set-timezone America/Los_Angeles
 
-# esc button is missing >> sudo pkill TouchBarServer
-
+# ESC button is missing >> sudo pkill TouchBarServer
 
 : 'topic=cp in mac and ubuntu
 in mac: cp -Rv folder1 folder2: would copy the link itself.
@@ -443,6 +442,7 @@ or
 >> {python-version} get-pip.py
 
 >> {python-version} -m pip install scipy, numpy [--upgrade]
+#remember: prefer pip3 install ....
 
 install locally
 >> python-version -m pip install package --user summer

@@ -49,10 +49,10 @@ def run_pip(options, args):
     cmd = f"{py} -m pip search {options.search}"
 
   elif options.install is not None:
-    cmd = f"sudo {py} -m pip install {options.install}"
+    cmd = f"pip-{options.python} install {options.install} --user {options.user}"
 
   elif options.uninstall is not None:
-    cmd = f"sudo {py} -m pip uninstall {options.uninstall}"
+    cmd = f"sudo pip-{options.python} uninstall {options.uninstall}"
 
   elif options.upgrade:
     cmd = f"sudo {py} -m pip install pip --upgrade"
@@ -79,8 +79,9 @@ def main():
   parser.add_option("--uninstall", help="")
   parser.add_option("--update", action="store_true", help="")
   parser.add_option("--upgrade", action="store_true", help="")
-  parser.add_option("--python", default="3.7", help="default python3.7")
+  parser.add_option("--python", default="3.7", help="default 3.7")
   parser.add_option("--list_installed", action="store_true", help="")
+  parser.add_option("--user", default="summer", help="")
   (options, args) = parser.parse_args()
 
   if options.tool == "port":
