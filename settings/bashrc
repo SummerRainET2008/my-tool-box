@@ -96,6 +96,10 @@ note: --runtime=nvidia in 225, nightly-gpu-py3
 >> pronounce a word in the default dict: option + s
 '
 
+: 'topic=hotkey in Ubuntu
+>> show the desktop: Ctrl + D + Super (the Windows key for many keyboards).
+'
+
 # colorful temrinal for ubuntu
 # alias less='less --RAW-CONTROL-CHARS'
 # export LS_OPTS='--color=auto'
