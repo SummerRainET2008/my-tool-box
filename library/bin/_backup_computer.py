@@ -5,13 +5,10 @@ import optparse
 import os
 import time
 
-if __name__ == "__main__":
+def main():  
   parser = optparse.OptionParser(usage = "cmd [optons]")
-  parser.add_option("--driver", default="gdrive",
-                    help="['server', '*gdrive', 'warehouse']")
   parser.add_option("-d", action="store_true", dest="delete",
                     help="to delete additional files.")
-  parser.add_option("--action", default="backup", help="['*backup', 'restore']")
   (options, args) = parser.parse_args()
 
   src_path = os.path.expanduser("~/inf")
@@ -19,29 +16,14 @@ if __name__ == "__main__":
   os.chdir(src_path)
   src_path = "."
 
-  if options.driver == "gdrive":
-    target_path = "/Volumes/gdrive/inf"
-    assert os.path.isdir(target_path)
-  elif options.driver == "warehouse":
-    target_path = "/Volumes/warehouse/inf"
-    assert os.path.isdir(target_path)
-  elif options.driver == "server":
-    target_path = "225@/home/summer/summer/backup.mac"
-  else:
-    assert False
-
-  assert options.action in ["backup", "restore"]
-  if options.action == "restore":
-    src_path, target_path = target_path, src_path
+  target_path = "ubuntu@/media/ubuntu/backup/inf"
 
   cmd = f"_supdate.py {src_path} {target_path}"
   if options.delete:
     cmd += " -d"
 
   print("--" * 64)
-  print(f"drive       : {options.driver}")
   print(f"to delete   : {options.delete}")
-  print(f"action      : {options.action}")
   print()
 
   print(f"pwd: {os.getcwd()}")
@@ -63,3 +45,5 @@ if __name__ == "__main__":
     duration = time.time() - start_time
     print(f"time: {duration} seconds.")
 
+if __name__ == "__main__":
+  main()
