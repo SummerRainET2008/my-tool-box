@@ -1,3 +1,8 @@
+# recgonize fonts used in a pdf file
+# >> strings /path/to/document.pdf | grep -i FontName
+
+# >> getent hosts
+
 # sudo timedatectl list-timezones
 # sudo timedatectl set-timezone America/Los_Angeles
 

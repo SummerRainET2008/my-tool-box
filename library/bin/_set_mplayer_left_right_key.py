@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from pa_nlp import common as nlp
+from pa_nlp import nlp
 from pa_nlp import *
 
 if __name__ == "__main__":
