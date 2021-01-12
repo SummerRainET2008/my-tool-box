@@ -97,8 +97,9 @@ note: --runtime=nvidia in 225, nightly-gpu-py3
 '
 
 : 'topic=hotkey in Mac
->> lookup word in the default dict: ctrl + cmd + d
->> pronounce a word in the default dict: option + s
+$ lookup word in the default dict: ctrl + cmd + d
+$ pronounce a word in the default dict: option + s
+  preferences - accessibility - speech
 '
 
 : 'topic=hotkey in Ubuntu

@@ -6,4 +6,5 @@
 {'name': '225', 'password': 'common', 'account': 'summer', 'ip': '192.168.1.225', 'port': '', 'memo': 'NLP group'}
 {'name': '228', 'password': 'common', 'account': 'summer', 'ip': '192.168.1.228', 'port': '', 'memo': 'NLP group'}
 {'name': 'rtx1', 'password': 'common', 'account': 'summer', 'ip': '192.168.1.189', 'port': '', 'memo': 'NLP group, RTX 8000 8 cards'}
-{'name': 'ubuntu', 'password': '', 'account': 'summer', 'ip': '169.254.244.94', 'port': ''}
+{'name': 'ubuntu_wire', 'password': '', 'account': 'summer', 'ip': '169.254.244.94', 'port': ''}
+{'name': 'ubuntu_wifi', 'password': '', 'account': 'summer', 'ip': '192.168.1.143', 'port': ''}

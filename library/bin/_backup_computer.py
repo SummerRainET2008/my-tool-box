@@ -9,6 +9,8 @@ def main():
   parser = optparse.OptionParser(usage = "cmd [optons]")
   parser.add_option("-d", action="store_true", dest="delete",
                     help="to delete additional files.")
+  parser.add_option("--server", default="ubuntu_wifi",
+                    help="default 'ubuntu_wifi'")
   (options, args) = parser.parse_args()
 
   src_path = os.path.expanduser("~/inf")
@@ -16,7 +18,7 @@ def main():
   os.chdir(src_path)
   src_path = "."
 
-  target_path = "ubuntu@/media/ubuntu/backup/inf"
+  target_path = f"{options.server}@/media/ubuntu/backup/inf"
 
   cmd = f"_supdate.py {src_path} {target_path}"
   if options.delete:
