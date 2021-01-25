@@ -1,0 +1,1 @@
+nohup ~/.dropbox-dist/dropboxd &

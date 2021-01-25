@@ -1,3 +1,5 @@
+# Added tensorboard support. >> tensorboard --logdir=runs --bind_all
+
 # recgonize fonts used in a pdf file
 # >> strings /path/to/document.pdf | grep -i FontName
 
@@ -99,8 +101,8 @@ note: --runtime=nvidia in 225, nightly-gpu-py3
 
 : 'topic=hotkey in Mac
 $ lookup word in the default dict: ctrl + cmd + d
-$ pronounce a word in the default dict: option + s
-  preferences - accessibility - speech
+$ pronounce a word in the default dict: ctrl + cmd + s
+  settings: preferences - accessibility - speech
 '
 
 : 'topic=hotkey in Ubuntu
