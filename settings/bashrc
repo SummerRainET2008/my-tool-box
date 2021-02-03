@@ -633,7 +633,7 @@ uninstall all packages
 export CLICOLOR=1 
 export LSCOLORS=ExFxCxDxBxegedabagacad
 
-alias _mount_201='sudo sshfs summer@192.168.1.201:/media/workspace/summer /home/summer/summer201 -o idmap=user -o allow_other'
+alias _mount_201='sudo sshfs xiatian443@192.168.1.201:/media/workspace/xiatian443 /home/summer/disk201 -o idmap=user -o allow_other'
 alias _ubuntu_version='lsb_release -a'
 
 alias _create_cpp_project='cp "/Users/world/Desktop/test program/leetcode template/"* .; cp ~/.gitignore .; git init;'

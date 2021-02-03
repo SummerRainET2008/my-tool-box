@@ -110,7 +110,8 @@ endfunction
 
 """"""""""""""""""""""both for guivim and vim""""""""""""""""""""""""""""""""""
 setlocal iskeyword+=_
-setlocal textwidth=80
+setlocal textwidth=0
+set wrap
 
 call MapCodingBracket()
 inoremap {  {}<Left>
