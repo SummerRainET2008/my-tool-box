@@ -4,7 +4,7 @@ export PS1='v1(unknown)@\W\$ '
 alias less='less --RAW-CONTROL-CHARS'
 export LS_OPTS='--color=auto'
 alias ls='ls ${LS_OPTS}'
-alias _mount_201='sshfs xiatian443@192.168.1.201:/media/workspace/xiatian443 /home/xiatian443/disk201 -o idmap=user -o allow_other'
+alias _mount_210='sshfs xiatian443@192.168.1.210:/media/workspace/xiatian443 /home/xiatian443/disk210 -o idmap=user -o allow_other'
 alias _mount_ubuntu='sshfs summer@169.254.244.94:/media/ubuntu ~/ubuntu_disk/ -o idmap=user -o allow_other'
 
 stty stop undef
