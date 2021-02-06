@@ -32,7 +32,7 @@ def get_files_or_folders(dir_only: bool, file_only: bool, file_types: set,
         nlp.get_file_extension(f) in file_types:
         yield f
 
-def include_keywords(f: str, keywords: list):
+def include_all_keywords(f: str, keywords: list):
   f = f.split("/")[-1].lower()
   for kw in keywords:
     if kw not in f:
@@ -49,6 +49,9 @@ def main():
   parser.add_option("--file_types", default="", help="such as py,cpp")
   parser.add_option("--global_search", action="store_true", default=False)
   parser.add_option("--reverse", action="store_true", default=False)
+  parser.add_option("--sort_by_size", action="store_true", default=False)
+  parser.add_option("--min_file_size", type=int, default=0,
+                    help="default 0 Mb.")
   parser.add_option("--cmd", help='e.g., chmod a-w {}')
   (options, args) = parser.parse_args()
 
@@ -58,29 +61,41 @@ def main():
   else:
     file_types = set(options.file_types.split(","))
 
-  num = 0
+  valid_files = []
   for f in get_files_or_folders(options.dir_only,
                                 options.file_only,
                                 file_types,
                                 options.global_search):
-    # print("debug:", f)
     if ".git" in f or "/." in f:
       continue
 
-    valid = include_keywords(f, args)
-    if options.reverse:
-      valid = not valid
+    if not options.reverse and not include_all_keywords(f, args) or \
+      options.reverse and include_all_keywords(f, args):
+      continue
 
-    if valid:
-      print(f"{num:8}: '{f}'")
-      num += 1
+    file_size = os.path.getsize(f) / 1024 / 1024
+    if file_size < options.min_file_size:
+      continue
 
-      cmd = options.cmd
-      if nlp.is_none_or_empty(cmd):
-        continue
+    cmd = options.cmd
+    if not nlp.is_none_or_empty(cmd):
       cmd = cmd.replace("{}", f"'{f}'")
-      # print(cmd)
-      os.system(cmd)
+    else:
+      cmd = None
+
+    result = {
+      "file": f,
+      "file_size": file_size,
+      "cmd": cmd
+    }
+    valid_files.append(result)
+
+  valid_files.sort(key=lambda item: -item["file_size"])
+  for file_id, item in enumerate(valid_files):
+    print(f"{file_id:10}: {item['file_size']:.2f} Mb, {item['file']}")
+    cmd = item["cmd"]
+    if cmd is not None:
+      nlp.execute_cmd(item["cmd"])
 
 if __name__ == "__main__":
   main()
