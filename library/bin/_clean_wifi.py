@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 #coding: utf8
 
-from pa_nlp import common as nlp
+from pa_nlp import nlp
 import optparse
 import os
 

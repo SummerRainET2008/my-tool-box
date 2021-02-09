@@ -205,7 +205,9 @@ if f != -1 and t != -1:
              .replace("'", "\\'")\
              .replace("(", "\\(")\
              .replace(")", "\\)")
-  os.system("open %s" %addr)
+  #print("found an address:", addr)            
+  vim.command(":call setreg('+', '%s')" %addr)
+  os.system("open '%s'" %addr)
 else:
   print "Does not find a link"
 
