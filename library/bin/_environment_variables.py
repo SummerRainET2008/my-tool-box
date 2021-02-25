@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 from algorithm_3x import *
-from pa_nlp import common as nlp
+from palframe import common as nlp
 import os
 
 if __name__ == "__main__":

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 #coding: utf8
 
-from pa_nlp.nlp import Logger
+from palframe.nlp import Logger
 from library.include.server_manager import *
 
 if __name__ == "__main__":

@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from pa_nlp import common as nlp
+from palframe import common as nlp
 import operator
 
 class Spark:

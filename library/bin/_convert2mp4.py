@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 
-from pa_nlp import nlp
-from pa_nlp.nlp import Logger
-from pa_nlp import *
+from palframe import nlp
+from palframe.nlp import Logger
+from palframe import *
 
 def main():
   parser = OptionParser(usage = "cmd [optons] file1 file2 ...]")

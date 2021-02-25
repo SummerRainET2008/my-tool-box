@@ -47,8 +47,8 @@ content = '''\
 #coding: utf8
 #author: Tian Xia (SummerRainET2008@gmail.com)
 
-import pa_nlp.common as nlp
-from pa_nlp import *
+from palframe import nlp
+from palframe import *
 
 def main():
   parser = OptionParser(usage="cmd [optons] ..]")

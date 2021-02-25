@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 #coding: utf8
 
-from pa_nlp import nlp
-from pa_nlp import *
+from palframe import nlp
+from palframe import *
 
 def get_files_or_folders(dir_only: bool, file_only: bool, file_types: set,
                          global_search: bool):

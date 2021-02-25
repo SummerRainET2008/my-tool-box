@@ -4,7 +4,7 @@
 
 import time
 import tensorflow as tf
-import pa_nlp.tensorflow as nlp_tf
+import palframe.tensorflow as nlp_tf
 
 import numpy as np
 

@@ -1,4 +1,4 @@
-from pa_nlp import common as nlp
+from palframe import common as nlp
 import os
 import sys
 import time

@@ -2,8 +2,8 @@
 
 import sys
 import platform
-from pa_nlp import nlp
-from pa_nlp.nlp import *
+from palframe import nlp
+from palframe.nlp import *
 
 def run_port(options, args):
   if options.search is not None:

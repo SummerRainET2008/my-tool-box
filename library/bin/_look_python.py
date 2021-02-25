@@ -15,5 +15,5 @@ if __name__ == "__main__":
       print("%-10s %-80s %-80s" %(thread, 
                                   extract_pwd(thread),
                                   open("/proc/%s/cmdline" %thread).read()))
-    except:
-      pass
+    except Exception as error:
+      print(error)

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from pa_nlp import nlp
+from palframe import nlp
 import optparse
 import os
 import time

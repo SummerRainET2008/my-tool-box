@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
-from pa_nlp import nlp
-from pa_nlp import *
+from palframe import nlp
+from palframe import *
 
 if __name__ == "__main__":
   parser = OptionParser(usage = "cmd [optons] ..]")

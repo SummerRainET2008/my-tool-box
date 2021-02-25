@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from pa_nlp import nlp
+from palframe import nlp
 from os import system
 from optparse import OptionParser
 from random import sample

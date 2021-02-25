@@ -4,7 +4,7 @@ import collections
 import functools
 import math
 import operator
-from pa_nlp import common as nlp
+from palframe import common as nlp
 
 try:
   import scipy

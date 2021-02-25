@@ -1,4 +1,4 @@
-from pa_nlp import *
+from palframe import *
 import pylab
 import matplotlib
 

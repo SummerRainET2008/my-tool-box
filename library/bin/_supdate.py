@@ -2,7 +2,7 @@
 #coding: utf8
 
 from library.bin import _scp
-from pa_nlp import nlp
+from palframe import nlp
 import optparse
 
 if __name__ == "__main__":

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 #coding: utf8
 
-from pa_nlp import nlp
+from palframe import nlp
 import optparse
 
 if __name__ == "__main__":

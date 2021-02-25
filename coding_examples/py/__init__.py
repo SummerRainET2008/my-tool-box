@@ -1,1 +1,1 @@
-from pa_nlp import *
+from palframe import *

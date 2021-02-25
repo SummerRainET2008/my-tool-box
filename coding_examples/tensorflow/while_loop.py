@@ -2,8 +2,8 @@
 #coding: utf8
 #author: Tian Xia (SummerRainET2008@gmail.com)
 
-from pa_nlp import common as nlp
-from pa_nlp import *
+from palframe import common as nlp
+from palframe import *
 import tensorflow as tf
 
 class LinearSearch():

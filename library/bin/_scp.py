@@ -2,8 +2,8 @@
 #coding: utf8
 
 from library.include.server_manager import *
-from pa_nlp import nlp
-from pa_nlp.nlp import Logger
+from palframe import nlp
+from palframe.nlp import Logger
 import optparse
 
 def replace_server(addr):

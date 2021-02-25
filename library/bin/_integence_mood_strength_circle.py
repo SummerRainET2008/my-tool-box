@@ -2,7 +2,7 @@
 
 # http://www.360doc.com/content/12/0218/12/4920176_187558951.shtml
 
-from pa_nlp.nlp import *
+from palframe.nlp import *
 from datetime import date 
 from math import sin
 import pylab  

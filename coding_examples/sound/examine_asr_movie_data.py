@@ -1,10 +1,10 @@
 #coding: utf8
 #author: Tian Xia (SummerRainET2008@gmail.com)
 
-from pa_nlp import common as nlp
+from palframe import common as nlp
 import time
 import multiprocessing as mp
-from pa_nlp.audio.audio_helper import AudioHelper
+from palframe.audio.audio_helper import AudioHelper
 import optparse
 import collections
 import os

@@ -720,6 +720,7 @@ export DYLD_FALLBACK_LIBRARY_PATH=~/installed/boost/stage/lib:$DYLD_FALLBACK_LIB
 export DYLD_FALLBACK_LIBRARY_PATH=/opt/local/lib:$DYLD_FALLBACK_LIBRARY_PATH
 
 export PYTHONPATH=~/alias/my_tool_box/:$PYTHONPATH
+export PYTHONPATH=~/alias/PAL_frame:$PYTHONPATH
 export PYTHONPATH=./:$PYTHONPATH
 
 export CLASSPATH=~/.m2/repository/org/scala-lang/scala-library/2.11.7/scala-library-2.11.7.jar:$CLASSPATH
@@ -750,3 +751,12 @@ alias _docker_image_dl_docker_version_19='sudo docker run --gpus all  --shm-size
 alias _docker_image_dl_docker_version_18='sudo docker run --runtime=nvidia -it --rm -v ~/summer201:/root/summer201  -w /root/summer201 summer-dl-tf2-pytorch bash'
 
 source ~/.local_bashrc
+
+##
+# Your previous /Users/summer/.profile file was backed up as /Users/summer/.profile.macports-saved_2021-02-22_at_15:18:04
+##
+
+# MacPorts Installer addition on 2021-02-22_at_15:18:04: adding an appropriate DISPLAY variable for use with MacPorts.
+export DISPLAY=:0
+# Finished adapting your DISPLAY environment variable for use with MacPorts.
+
