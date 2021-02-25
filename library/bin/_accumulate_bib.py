@@ -3,8 +3,8 @@
 '''1. All reference files must be "references.bib".
 '''
 
-import sys
-from algorithm import *
+from palframe import *
+from palframe.nlp import *
 
 class Item(object):
   def __init__(self):
@@ -47,20 +47,20 @@ if __name__ == "__main__":
   (options, args) = parser.parse_args()
 
   all_citations = {}
-  for fname in popen('''find . -name "references.bib"'''):
+  for fname in os.popen('''find . -name "references.bib"'''):
     fname = fname.strip()
-    print fname
+    fname
     items = list(Item.analyze_item(open(fname).read()))
     for item in items:
       all_citations[item.key] = item
-  print "There are %d citations" %(len(all_citations)) 
+  Logger.info("There are %d citations" %(len(all_citations)))
 
   all_citations = all_citations.values()
   all_citations.sort(key = lambda h: h.key)
 
   fou = open("references.all.bib", "w")
   for item in all_citations:
-    print >> fou, item.doc
-    print >> fou
+    Logger.info(item.doc, file=fou)
+    Logger.info(file=fou)
   fou.close()     
     
