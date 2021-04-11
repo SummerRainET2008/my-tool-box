@@ -27,6 +27,8 @@ def main():
                      #default = False, help = "")
   (options, args) = parser.parse_args()
 
+  Logger.set_level(0)
+
   if len(args) == 0:
     exit(0)
 

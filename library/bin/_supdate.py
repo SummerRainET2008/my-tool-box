@@ -3,6 +3,7 @@
 
 from library.bin import _scp
 from palframe import nlp
+from palframe.nlp import *
 import optparse
 
 if __name__ == "__main__":
@@ -14,7 +15,8 @@ if __name__ == "__main__":
                     default = False)
   (options, args) = parser.parse_args()
   assert len(args) == 2 and ("." == args[0] or "." == args[1])
-  
+
+  Logger.set_level(0)
   deleteOpt = "--delete" if options.delete else ""
   if options.excludePattern is not None:
     excludeOpt = f"--exclude={options.excludePattern}"

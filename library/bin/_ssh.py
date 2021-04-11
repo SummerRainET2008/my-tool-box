@@ -11,6 +11,8 @@ if __name__ == "__main__":
                      #default = False, help = "")
   (options, args) = parser.parse_args()
 
+  Logger.set_level(0)
+
   server_manager = ServerManager.get_instance()
   if len(args) == 0:
     exit(0)

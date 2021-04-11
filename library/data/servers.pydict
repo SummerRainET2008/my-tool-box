@@ -1,9 +1,9 @@
 {'name': '210', 'password': 'common', 'account': 'xiatian443', 'ip': '192.168.1.210', 'port': '', 'memo': 'NLP group. It was 201. The previous 210 corrupted, which was 200.'}
 {'name': '208', 'password': 'common', 'account': 'xiatian443', 'ip': '192.168.1.208', 'port': '', 'memo': 'NLP group'}
-{'name': 'lab', 'password': 'common', 'account': 'xiatian443', 'ip': 'ml.pingan-labs.us', 'port': '39002', 'memo': 'NLP group, from outside access'}
+{'name': 'lab', 'password': 'common', 'account': 'xiatian443', 'ip': '66.201.43.173', 'port': '39002', 'memo': 'NLP group, from outside access'}
 {'name': '211', 'password': 'common', 'account': 'xiatian443', 'ip': '192.168.1.211', 'port': '', 'memo': 'NLP group'}
 {'name': '225', 'password': 'common', 'account': 'xiatian443', 'ip': '192.168.1.225', 'port': '', 'memo': 'NLP group'}
 {'name': '228', 'password': 'common', 'account': 'xiatian443', 'ip': '192.168.1.228', 'port': '', 'memo': 'NLP group'}
 {'name': 'rtx1', 'password': 'common', 'account': 'xiatian443', 'ip': '192.168.1.189', 'port': '', 'memo': 'NLP group, RTX 8000 8 cards'}
 {'name': 'ubuntu_wire', 'password': '', 'account': 'summer', 'ip': '169.254.244.94', 'port': ''}
-{'name': 'ubuntu_wifi', 'password': '', 'account': 'summer', 'ip': '192.168.1.143', 'port': ''}
+{'name': 'ubuntu_wifi', 'password': '', 'account': 'summer', 'ip': '192.168.0.130', 'port': ''}
