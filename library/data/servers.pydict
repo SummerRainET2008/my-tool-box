@@ -5,5 +5,8 @@
 {'name': '225', 'password': 'common', 'account': 'xiatian443', 'ip': '192.168.1.225', 'port': '', 'memo': 'NLP group'}
 {'name': '228', 'password': 'common', 'account': 'xiatian443', 'ip': '192.168.1.228', 'port': '', 'memo': 'NLP group'}
 {'name': 'rtx1', 'password': 'common', 'account': 'xiatian443', 'ip': '192.168.1.189', 'port': '', 'memo': 'NLP group, RTX 8000 8 cards'}
+{'name': 'chiero1', 'password': 'common', 'account': 'xiatian443', 'ip': '192.168.1.190', 'port': '', 'memo': 'A6000 8 cards'}
+{'name': 'chiero2', 'password': 'common', 'account': 'xiatian443', 'ip': '192.168.1.191', 'port': '', 'memo': 'A6000 8 cards'}
+{'name': 'chiero3', 'password': 'common', 'account': 'xiatian443', 'ip': '192.168.1.192', 'port': '', 'memo': 'A6000 8 cards'}
 {'name': 'ubuntu_wire', 'password': '', 'account': 'summer', 'ip': '169.254.244.94', 'port': ''}
 {'name': 'ubuntu_wifi', 'password': '', 'account': 'summer', 'ip': '192.168.0.130', 'port': ''}
