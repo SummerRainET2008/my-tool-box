@@ -1,3 +1,17 @@
+: 'topic=port forwarding
+
+server_A: localhost
+server_B: 66.201.43.173, port 39002
+server_C: 192.168.1.211, port default 22.
+
+In A: >> ssh -p 39002 -L 4321:192.168.1.211:22 {user-in-B}@66.201.43.173
+In A: >> scp -P 4321 file1 {user-in-C}@127.0.0.1:~/
+would transfer file1 in A to C:~/.
+Likewise in A: >> scp -P 4321 {user-in-C}@127.0.0.1:~/file1 .
+would transfer C:~/file1 to current folder in A.
+'
+
+
 # Added tensorboard support. >> tensorboard --logdir=runs --bind_all
 
 # recgonize fonts used in a pdf file
