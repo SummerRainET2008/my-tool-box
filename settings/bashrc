@@ -109,7 +109,7 @@ note: --runtime=nvidia in 225, nightly-gpu-py3
 >> docker run --gpus all -it --rm tensorflow/tensorflow:latest-gpu-py3 \
   python3 -c "import tensorflow as tf; print(tf.__version__, tf.reduce_sum(tf.random.normal([1000, 1000])))"
 
->> sudo docker run --gpus all -it --rm -v ~/summer201:/summer201 -w /summer201 \
+>> sudo docker run --gpus all -it --rm -v ~/disk201:/disk201 -w /disk201 \
   tensorflow/tensorflow:nightly-gpu-py3 bash 
 '
 
@@ -130,7 +130,7 @@ $ pronounce a word in the default dict: ctrl + cmd + s
 
 # mount network folder. 
 # mkdir /home/summer/summer208; sudo sshfs summer@192.168.1.208:/data/workspace/summer /home/summer/summer208 -o idmap=user -o allow_other
-# mkdir /home/summer/summer201; sudo sshfs summer@192.168.1.201:/media/workspace/summer /home/summer/summer201 -o idmap=user -o allow_other
+# mkdir /home/summer/disk201; sudo sshfs summer@192.168.1.201:/media/workspace/summer /home/summer/disk201 -o idmap=user -o allow_other
 
 # watch -n 0.1 nvidia-smi
 
@@ -761,8 +761,8 @@ export PS1='mac@\W\$ '
 # for spark Python.
 export PYSPARK_PYTHON=/usr/bin/python27-virtual-hadoop
 
-alias _docker_image_dl_docker_version_19='sudo docker run --gpus all  --shm-size 50G -it --rm -v ~/summer201:/root/summer201  -w /root/summer201 summer-dl-tf2-pytorch bash'
-alias _docker_image_dl_docker_version_18='sudo docker run --runtime=nvidia -it --rm -v ~/summer201:/root/summer201  -w /root/summer201 summer-dl-tf2-pytorch bash'
+alias _docker_image_dl_docker_version_19='sudo docker run --gpus all  --shm-size 50G -it --rm -v ~/disk201:/root/disk201  -w /root/disk201 summer-dl-tf2-pytorch bash'
+alias _docker_image_dl_docker_version_18='sudo docker run --runtime=nvidia -it --rm -v ~/disk201:/root/disk201  -w /root/disk201 summer-dl-tf2-pytorch bash'
 
 source ~/.local_bashrc
 
