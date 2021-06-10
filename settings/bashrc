@@ -1,3 +1,13 @@
+: 'topic=config chiero GPU cluster
+Phase 1: open all ports.
+  >> sudo ufw enable
+  >> sudo ufw allow ssh 
+  >> sudo ufw allowallow 1000:50000/tcp
+  >> sudo ufw status verbose
+
+Phrase 2: set suitable net_name in Param.py  
+'
+
 : 'topic=port forwarding
 
 server_A: localhost

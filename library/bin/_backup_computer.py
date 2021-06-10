@@ -45,7 +45,7 @@ def main():
     nlp.execute_cmd("_clone_file_tag.py --cmd gen")
 
     duration = time.time() - start_time
-    print(f"time: {duration} seconds.")
+    print(f"time: {nlp.to_readable_time(duration)}")
 
 if __name__ == "__main__":
   main()
