@@ -126,7 +126,7 @@ note: --runtime=nvidia in 225, nightly-gpu-py3
 : 'topic=hotkey in Mac
 $ lookup word in the default dict: ctrl + cmd + d
 $ pronounce a word in the default dict: ctrl + cmd + s
-  settings: preferences - accessibility - speech
+  settings: preferences - accessibility - spoken content 
 '
 
 : 'topic=hotkey in Ubuntu
@@ -773,6 +773,13 @@ export PYSPARK_PYTHON=/usr/bin/python27-virtual-hadoop
 
 alias _docker_image_dl_docker_version_19='sudo docker run --gpus all  --shm-size 50G -it --rm -v ~/disk201:/root/disk201  -w /root/disk201 summer-dl-tf2-pytorch bash'
 alias _docker_image_dl_docker_version_18='sudo docker run --runtime=nvidia -it --rm -v ~/disk201:/root/disk201  -w /root/disk201 summer-dl-tf2-pytorch bash'
+
+alias _open_memo="vim /Users/summer/inf/others/Dropbox/self/memo.txt"
+alias _open_paper="vim /Users/summer/inf/others/Dropbox/self/paper.text"
+alias _english_learning_help="cd /Users/summer/inf/study/English/enlearning; python3 codes/en_learn.py -h" 
+alias _english_learning="cd /Users/summer/inf/study/English/enlearning; python3 codes/en_learn.py " 
+alias _english_learning_data="cd /Users/summer/inf/study/English/enlearning; vim data/data.pydict" 
+alias _cd_account="cd /Users/summer/alias/account_and_password"
 
 source ~/.local_bashrc
 
